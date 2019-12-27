@@ -1,0 +1,8 @@
+  test:
+    alias: Тест
+    sequence:
+    - service: mqtt.publish
+      data_template:
+         topic: "states/error"
+         payload_template: '004'
+         retain: true

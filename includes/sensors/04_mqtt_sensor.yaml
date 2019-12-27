@@ -1,0 +1,9 @@
+# Время последнего открытия входной двери
+  - platform: mqtt
+    state_topic: "states/error"
+    name: 'mqtt_error_code'
+
+# Время последнего открытия входной двери
+  - platform: mqtt
+    state_topic: "binary_sensor/158d000119378d"
+    name: 'mqtt_158d000119378d'

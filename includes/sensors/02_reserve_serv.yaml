@@ -1,0 +1,53 @@
+ - platform: rest
+   resource: http://192.168.0.71:8123/api/states/sensor.online_custom
+   name: reserve_state
+   force_update: true
+   headers: 
+     Authorization: !secret reserve_secret_token
+     content-type: 'application/json'
+   value_template: '{{ value_json.state }}'
+
+ - platform: rest
+   resource: http://192.168.0.71:8123/api/states/group.scenario
+   name: reserve_scenario_group
+   force_update: true
+   headers: 
+     Authorization: !secret reserve_secret_token
+     content-type: 'application/json'
+   value_template: '{{ value_json.state }}'
+
+ - platform: mqtt
+   name: "reserve_system_main_offline"
+   state_topic: "states/reserve/system/main_offline"
+   
+ - platform: mqtt
+   name: "reserve_system_main_online"
+   state_topic: "states/reserve/system/main_online"
+
+ - platform: mqtt
+   name: "reserve_system_send"
+   state_topic: "states/reserve/system/send"
+
+ - platform: mqtt
+   name: "reserve_system_report"
+   state_topic: "states/reserve/system/report"
+
+ - platform: mqtt
+   name: "reserve_system_scenario"
+   state_topic: "states/reserve/system/scenario"
+   
+ - platform: mqtt
+   name: "reserve_system_unavailable_now_light"
+   state_topic: "states/reserve/system/unavailable_now_light"  
+   
+ - platform: mqtt
+   name: "reserve_system_unavailable_now_switch"
+   state_topic: "states/reserve/system/unavailable_now_switch"     
+   
+ - platform: mqtt
+   name: "reserve_system_unavailable_now_sensor"
+   state_topic: "states/reserve/system/unavailable_now_sensor"       
+
+ - platform: mqtt
+   name: "reserve_system_unavailable_now_binary_sensor"
+   state_topic: "states/reserve/system/unavailable_now_binary_sensor"    

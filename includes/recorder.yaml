@@ -1,0 +1,25 @@
+  db_url: !secret db_link
+  purge_keep_days: 2
+  include:
+    entities:
+# Системные сенсоры
+       - sensor.processor_use
+       - sensor.cpu_temp
+       - sensor.memory_use_percent
+       - sensor.disk_use_percent
+       - sensor.disk_free
+       - sensor.maria_db_size
+# Основной сервер       
+       - sensor.main_system_send
+       - sensor.main_system_scenario
+       - sensor.main_system_unavailable_now_light
+       - sensor.main_system_unavailable_now_switch
+       - sensor.main_system_unavailable_now_sensor
+       - sensor.main_system_unavailable_now_binary_sensor
+# Резерный сервер
+       - sensor.reserve_system_send
+       - sensor.reserve_system_scenario
+       - sensor.reserve_system_unavailable_now_light
+       - sensor.reserve_system_unavailable_now_switch
+       - sensor.reserve_system_unavailable_now_sensor
+       - sensor.reserve_system_unavailable_now_binary_sensor

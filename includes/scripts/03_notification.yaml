@@ -1,0 +1,20 @@
+  telegramm_unknown_error:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Код ошибки не распознан
+             
+  telegramm_002:
+    alias: Код 002 робот пылесос
+    sequence:
+    - service: notify.telegram_alex
+      data:
+        message: "Робот пылесос вышел на тропу войны {{ states('sensor.time_date') }}"
+        
+  telegramm_003:
+    alias: Код 003 гостиная, проветривание
+    sequence:
+    - service: notify.telegram_alex
+      data:
+        message: "Гостиная {{ states('sensor.time_date') }} - хорошо бы проветрить"

@@ -1,0 +1,10 @@
+# Автоматизации
+
+# Системные сценарии - 00_system.yaml
+automation.00_backup_everyday:
+  friendly_name: Резервное копирование
+  icon: mdi:cloud-upload
+  
+automation.00_start:
+  friendly_name: Запуск Home Assistant
+  icon: mdi:upload

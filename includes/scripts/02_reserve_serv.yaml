@@ -1,0 +1,38 @@
+  telegramm_reserve_start:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Резервный сервер Khadas VIM 2
+             Зафиксирован запуск в {{ states('sensor.reserve_system_send') }} 
+             Отчет о состоянии будет через 1 минуту
+
+
+  telegramm_reserve_report:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Резервный сервер Khadas VIM 2
+             Отчет за {{ states('sensor.reserve_system_send') }} 
+             Бытовые сценарии - {{ states('sensor.reserve_system_scenario') }} 
+             {{"\U0001F4A1"}} недоступно - {{ states('sensor.reserve_system_unavailable_now_light') }} 
+             {{"\U0001F50C"}} недоступно - {{ states('sensor.reserve_system_unavailable_now_switch') }} 
+             Сенсоров недоступно - {{ states('sensor.reserve_system_unavailable_now_sensor') }} 
+             Бинарных сенсоров недоступно - {{ states('sensor.reserve_system_unavailable_now_binary_sensor') }} 
+             
+  telegramm_reserve_offline:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Резервный сервер Khadas VIM 2
+             Потеря связи в {{ states('sensor.main_system_reserve_offline') }} 
+
+  telegramm_reserve_online:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Резервный сервер Khadas VIM 2
+             Связь восстановлена в {{ states('sensor.main_system_reserve_online') }} 

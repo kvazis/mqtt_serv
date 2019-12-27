@@ -1,0 +1,35 @@
+- alias: telegramm_reserve_start
+  initial_state: false
+  trigger:
+  - platform: state
+    entity_id: sensor.reserve_system_send
+  action:
+    - service: script.turn_on
+      entity_id: script.telegramm_reserve_start
+      
+- alias: telegramm_reserve_report
+  initial_state: false
+  trigger:
+  - platform: state
+    entity_id: sensor.reserve_system_report
+  action:
+    - service: script.turn_on
+      entity_id: script.telegramm_reserve_report
+      
+- alias: telegramm_reserve_offline
+  initial_state: false
+  trigger:
+  - platform: state
+    entity_id: sensor.main_system_reserve_offline
+  action:
+    - service: script.turn_on
+      entity_id: script.telegramm_reserve_offline
+      
+- alias: telegramm_reserve_online
+  initial_state: false
+  trigger:
+  - platform: state
+    entity_id: sensor.main_system_reserve_online
+  action:
+    - service: script.turn_on
+      entity_id: script.telegramm_reserve_online

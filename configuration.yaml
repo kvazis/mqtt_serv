@@ -1,0 +1,85 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: MQTT base
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude_coord
+  longitude: !secret longitude_coord
+  time_zone: Europe/Kiev
+
+  customize: !include_dir_merge_named includes/customize  
+
+  auth_providers:
+   - type: homeassistant
+   - type: legacy_api_password
+     api_password: !secret http_password
+  
+  whitelist_external_dirs :
+   - /config
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+lovelace:
+  mode: yaml
+
+
+recorder: !include includes/recorder.yaml
+group: !include includes/groups.yaml
+camera: !include includes/camera.yaml
+binary_sensor: !include_dir_merge_list includes/bin_sensor
+automation: !include_dir_merge_list includes/automation
+sensor: !include_dir_merge_list includes/sensors
+script: !include_dir_merge_named includes/scripts
+ 
+
+mqtt:
+  broker: core-mosquitto
+  discovery: true
+  discovery_prefix: homeassistant  
+  username: mqtt
+  password: mqtt
+#   birth_message:
+#     topic: 'hass/status'
+#     payload: 'online'
+#   will_message:
+#     topic: 'hass/status'
+#     payload: 'offline'
+
+
+rest_command:
+  google_backup:
+    url: 'http://192.168.0.77:8055/gb/doBackup'
+    timeout: '300'
+
+timer:
+  backup:
+    duration: '00:15:00'
+    
+counter:
+  backup_stage:
+    initial: 0
+    step: 1
+    
+telegram_bot:
+  - platform: polling
+    api_key: !secret api_key_77
+    allowed_chat_ids:
+      - !secret chat_id_alex
+      - !secret chat_id_olha
+      
+notify:
+  - name: telegram_alex
+    platform: telegram
+    chat_id: !secret chat_id_alex
+    
+  - name: telegram_olha
+    platform: telegram
+    chat_id: !secret chat_id_olha

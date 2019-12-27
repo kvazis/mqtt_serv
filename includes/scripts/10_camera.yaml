@@ -1,0 +1,52 @@
+  photo_door:
+    alias: Фотографии на входе и отправка в телеграмм
+    sequence:
+       - service: notify.telegram_alex
+         data:
+          title: "Дверь"
+          message: "Входная дверь открыта в {{ states('sensor.time_date') }}" 
+       - service: camera.snapshot
+         data:
+              entity_id: camera.xiaofang
+              filename: "/config/www/cam_captures/xiaofang.jpg"
+       - service: camera.snapshot
+         data:
+              entity_id: camera.reolink
+              filename: "/config/www/cam_captures/reolink.jpg"
+       - service: camera.snapshot
+         data:
+              entity_id: camera.reolink2
+              filename: "/config/www/cam_captures/reolink2.jpg"
+       - service: camera.snapshot
+         data:
+              entity_id: camera.reolink3
+              filename: "/config/www/cam_captures/reolink3.jpg"
+       - delay: 00:00:10
+       - service: notify.telegram_alex
+         data:
+              title: "Дверь"
+              message: "Фотография" 
+              data:
+                  photo:
+                      - file: /config/www/cam_captures/xiaofang.jpg
+                      - file: /config/www/cam_captures/reolink.jpg
+                      - file: /config/www/cam_captures/reolink2.jpg
+                      - file: /config/www/cam_captures/reolink3.jpg
+                      
+  video_reolink2:
+    alias: Запись с камеры Реолинк С2
+    sequence:
+    - service: camera.record
+      data_template:
+        entity_id: camera.reolink2
+        filename: "/config/www/cam_captures/reolink2.mp4"
+        lookback: 5
+        duration: 15
+    - delay: 00:00:30
+    - service: telegram_bot.send_video
+      data_template:
+        target:
+         - !secret chat_id_alex
+         - !secret chat_id_olha
+        file: "/config/www/cam_captures/reolink2.mp4"
+        caption: "Кухня - {{ states('sensor.time') }}"

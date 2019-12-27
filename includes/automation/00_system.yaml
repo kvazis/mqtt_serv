@@ -1,0 +1,32 @@
+- alias: 00_start
+  initial_state: true
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:  
+    - delay: 00:00:10
+    - service: script.turn_on
+      entity_id: script.telegramm_start
+      
+- alias: 00_backup_everyday
+  initial_state: true
+  trigger:
+    - platform: time
+      at: '04:00:00'
+  action:
+    - service: script.turn_on
+      entity_id: script.ha_backup
+      
+- alias: scenario_control
+  initial_state: true
+  trigger:
+    - platform: time_pattern
+      minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: group.scenario
+      state: 'off'
+  action:
+    - service: homeassistant.turn_on
+      entity_id:
+         - group.scenario
