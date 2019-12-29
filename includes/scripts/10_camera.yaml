@@ -5,6 +5,10 @@
          data:
           title: "Дверь"
           message: "Входная дверь открыта в {{ states('sensor.time_date') }}" 
+       - service: notify.telegram_olha
+         data:
+           title: "Дверь"
+           message: "Входная дверь открыта в {{ states('sensor.time_date') }}" 
        - service: camera.snapshot
          data:
               entity_id: camera.xiaofang
@@ -32,6 +36,17 @@
                       - file: /config/www/cam_captures/reolink.jpg
                       - file: /config/www/cam_captures/reolink2.jpg
                       - file: /config/www/cam_captures/reolink3.jpg
+       - service: notify.telegram_olha
+         data:
+              title: "Дверь"
+              message: "Фотография" 
+              data:
+                  photo:
+                      - file: /config/www/cam_captures/xiaofang.jpg
+                      - file: /config/www/cam_captures/reolink.jpg
+                      - file: /config/www/cam_captures/reolink2.jpg
+                      - file: /config/www/cam_captures/reolink3.jpg  
+                    
                       
   video_reolink2:
     alias: Запись с камеры Реолинк С2

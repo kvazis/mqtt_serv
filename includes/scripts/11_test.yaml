@@ -4,5 +4,5 @@
     - service: mqtt.publish
       data_template:
          topic: "states/error"
-         payload_template: '004'
+         payload_template: '001'
          retain: true
