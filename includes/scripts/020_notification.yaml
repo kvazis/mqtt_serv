@@ -1,0 +1,20 @@
+  telegramm_020:
+    alias: Код 020 обнаружение протечки возле стиральной машины
+    sequence:
+    - service: telegram_bot.send_message
+      data_template:
+        target:
+         - !secret chat_id_alex
+         - !secret chat_id_olha
+        message: 'Обнаружена протечка! Датчик возле стиральной машины. Время события - {{ states.sensor.time_date.state }}'
+
+        
+  telegramm_021:
+    alias: Код 021 устранение протечки возле стиральной машины
+    sequence:
+    - service: telegram_bot.send_message
+      data_template:
+        target:
+         - !secret chat_id_alex
+         - !secret chat_id_olha
+        message: 'Протечка устранена. Датчик возле стиральной машины. Время события - {{ states.sensor.time_date.state }}'

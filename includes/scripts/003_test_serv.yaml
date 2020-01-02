@@ -1,0 +1,13 @@
+  telegramm_test_offline:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Потеря связи с тестовым серевером в {{ states('sensor.test_system_test_offline') }} 
+             
+  telegramm_test_online:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Связь с тестовым серевером восстановлена в {{ states('sensor.test_system_test_online') }}

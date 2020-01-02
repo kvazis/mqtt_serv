@@ -1,0 +1,6 @@
+  telegramm_070:
+    alias: Код 070 закончилась вода в увлажнителе, детская Д
+    sequence:
+    - service: notify.telegram_alex
+      data:
+        message: "Детская Д, в увлажнителе кончилась вода, или он отключен вручную, время - {{ states('sensor.time_date') }}"

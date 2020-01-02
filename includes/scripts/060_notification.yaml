@@ -1,0 +1,79 @@
+  telegramm_060:
+    alias: Код 060 обнаружение протечки под раковиной в ванной
+    sequence:
+    - service: telegram_bot.send_message
+      data_template:
+        target:
+         - !secret chat_id_alex
+         - !secret chat_id_olha
+        message: 'Обнаружена протечка! Датчик под раковиной в ванной. Время события - {{ states.sensor.time_date.state }}'
+
+        
+  telegramm_061:
+    alias: Код 061 устранение протечки возле под раковиной в ванной
+    sequence:
+    - service: telegram_bot.send_message
+      data_template:
+        target:
+         - !secret chat_id_alex
+         - !secret chat_id_olha
+        message: 'Протечка устранена. Датчик под раковиной в ванной. Время события - {{ states.sensor.time_date.state }}'
+        
+  telegramm_062:
+    alias: Код 062 обнаружение протечки под душевой кабиной в ванной
+    sequence:
+    - service: telegram_bot.send_message
+      data_template:
+        target:
+         - !secret chat_id_alex
+         - !secret chat_id_olha
+        message: 'Обнаружена протечка! Датчик под душевой кабиной в ванной. Время события - {{ states.sensor.time_date.state }}'
+
+        
+  telegramm_063:
+    alias: Код 063 устранение протечки возле под душевой кабиной в ванной
+    sequence:
+    - service: telegram_bot.send_message
+      data_template:
+        target:
+         - !secret chat_id_alex
+         - !secret chat_id_olha
+        message: 'Протечка устранена. Датчик под душевой кабиной в ванной. Время события - {{ states.sensor.time_date.state }}'
+        
+  telegramm_064:
+    alias: Код 064 включение бойлера
+    sequence:
+    - service: telegram_bot.send_message
+      data_template:
+        target:
+         - !secret chat_id_alex
+        #  - !secret chat_id_olha
+        message: 'Включение бойлера. Время события - {{ states.sensor.time_date.state }}'
+        
+  telegramm_065:
+    alias: Код 065 выключение бойлера
+    sequence:
+    - service: telegram_bot.send_message
+      data_template:
+        target:
+         - !secret chat_id_alex
+        #  - !secret chat_id_olha
+        message: 'Выключение бойлера. Время события - {{ states.sensor.time_date.state }}'
+        
+  telegramm_066:
+    alias: Код 066 включение бойлера невозможно
+    sequence:
+    - service: telegram_bot.send_message
+      data_template:
+        target:
+         - !secret chat_id_alex
+        #  - !secret chat_id_olha
+        message: 'Включение бойлера невозможно, отключен режим нагрева воды. Время события - {{ states.sensor.time_date.state }}'
+
+        
+        
+        
+        
+        
+        
+        

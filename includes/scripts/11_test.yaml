@@ -4,5 +4,29 @@
     - service: mqtt.publish
       data_template:
          topic: "states/error"
-         payload_template: '001'
+         payload_template: '000'
+         retain: true
+    - delay: 00:00:05
+    - service: mqtt.publish
+      data_template:
+         topic: "states/error"
+         payload_template: '060'
+         retain: true
+    - delay: 00:00:05
+    - service: mqtt.publish
+      data_template:
+         topic: "states/error"
+         payload_template: '061'
+         retain: true
+    - delay: 00:00:05
+    - service: mqtt.publish
+      data_template:
+         topic: "states/error"
+         payload_template: '062'
+         retain: true
+    - delay: 00:00:05
+    - service: mqtt.publish
+      data_template:
+         topic: "states/error"
+         payload_template: '063'
          retain: true

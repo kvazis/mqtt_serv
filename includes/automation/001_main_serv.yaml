@@ -1,0 +1,17 @@
+- alias: telegramm_main_start
+  initial_state: false
+  trigger:
+  - platform: state
+    entity_id: sensor.main_system_send
+  action:
+    - service: script.turn_on
+      entity_id: script.telegramm_main_start
+      
+- alias: telegramm_main_report
+  initial_state: false
+  trigger:
+  - platform: state
+    entity_id: sensor.main_system_report
+  action:
+    - service: script.turn_on
+      entity_id: script.telegramm_main_report

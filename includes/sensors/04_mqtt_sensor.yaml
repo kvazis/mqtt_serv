@@ -1,4 +1,4 @@
-# Время последнего открытия входной двери
+# Код команд для уведомлений
   - platform: mqtt
     state_topic: "states/error"
     name: 'mqtt_error_code'

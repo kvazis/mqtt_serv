@@ -1,0 +1,68 @@
+- alias: telegramm_error_code
+  initial_state: false
+  trigger:
+  - platform: state
+    entity_id: sensor.mqtt_error_code
+  action:
+    - service: script.turn_on
+      data_template:
+       entity_id: >-
+          {%- if states.sensor.mqtt_error_code.state  == '000' -%}
+          script.stub
+          {%- elif states.sensor.mqtt_error_code.state  == '001' -%}
+          script.telegramm_main_offline
+          {%- elif states.sensor.mqtt_error_code.state  == '002' -%}
+          script.telegramm_main_online
+          {%- elif states.sensor.mqtt_error_code.state  == '003' -%}
+          script.telegramm_reserve_offline
+          {%- elif states.sensor.mqtt_error_code.state  == '004' -%}
+          script.telegramm_reserve_online
+          {%- elif states.sensor.mqtt_error_code.state  == '005' -%}
+          script.telegramm_test_offline
+          {%- elif states.sensor.mqtt_error_code.state  == '006' -%}
+          script.telegramm_test_online
+          {%- elif states.sensor.mqtt_error_code.state  == '010' -%}
+          script.open_door
+          {%- elif states.sensor.mqtt_error_code.state  == '011' -%}
+          script.telegramm_011
+          {%- elif states.sensor.mqtt_error_code.state  == '020' -%}
+          script.telegramm_020
+          {%- elif states.sensor.mqtt_error_code.state  == '021' -%}
+          script.telegramm_021
+          {%- elif states.sensor.mqtt_error_code.state  == '040' -%}
+          script.video_reolink2
+          {%- elif states.sensor.mqtt_error_code.state  == '041' -%}
+          script.telegramm_041
+          {%- elif states.sensor.mqtt_error_code.state  == '042' -%}
+          script.telegramm_042
+          {%- elif states.sensor.mqtt_error_code.state  == '050' -%}
+          script.telegramm_050
+          {%- elif states.sensor.mqtt_error_code.state  == '051' -%}
+          script.telegramm_051
+          {%- elif states.sensor.mqtt_error_code.state  == '060' -%}
+          script.telegramm_060
+          {%- elif states.sensor.mqtt_error_code.state  == '061' -%}
+          script.telegramm_061
+          {%- elif states.sensor.mqtt_error_code.state  == '062' -%}
+          script.telegramm_062
+          {%- elif states.sensor.mqtt_error_code.state  == '063' -%}
+          script.telegramm_063
+          {%- elif states.sensor.mqtt_error_code.state  == '064' -%}
+          script.telegramm_064
+          {%- elif states.sensor.mqtt_error_code.state  == '065' -%}
+          script.telegramm_065
+          {%- elif states.sensor.mqtt_error_code.state  == '066' -%}
+          script.telegramm_066
+          {%- elif states.sensor.mqtt_error_code.state  == '070' -%}
+          script.telegramm_070
+          {%- elif states.sensor.mqtt_error_code.state  == '080' -%}
+          script.telegramm_080
+          {%- else -%}
+          script.telegramm_unknown_error
+          {%- endif -%}
+    - delay: 00:00:01
+    - service: mqtt.publish
+      data_template:
+        topic: "states/error"
+        payload_template: '000'
+        retain: true

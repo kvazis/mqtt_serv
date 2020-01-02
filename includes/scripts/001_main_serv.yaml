@@ -26,13 +26,11 @@
      - service: notify.telegram_alex
        data:
          message: | 
-             Основной сервер Raspberry Pi 3 B+
-             Потеря связи в {{ states('sensor.reserve_system_main_offline') }} 
+             Потеря связи с основным серевером в {{ states('sensor.reserve_system_main_offline') }} 
              
   telegramm_main_online:
     sequence:
      - service: notify.telegram_alex
        data:
          message: | 
-             Основной сервер Raspberry Pi 3 B+
-             Связь восстановлена в {{ states('sensor.reserve_system_main_online') }}
+             Связь с основным серевером восстановлена в {{ states('sensor.reserve_system_main_online') }}

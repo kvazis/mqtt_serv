@@ -6,3 +6,11 @@
      Authorization: !secret rasp3_secret_token
      content-type: 'application/json'
    value_template: '{{ value_json.state }}'
+   
+ - platform: mqtt
+   name: "test_system_test_offline"
+   state_topic: "states/test/system/test_offline"
+   
+ - platform: mqtt
+   name: "test_system_test_online"
+   state_topic: "states/test/system/test_online"

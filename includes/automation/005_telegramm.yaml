@@ -1,0 +1,111 @@
+- alias: 005_telegramm_command
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/start'
+  action:
+  - service: notify.telegram_alex
+    data:
+      message: 'commands'
+      data:
+        keyboard:
+          - '/ping, /photo, /ilife'
+          - '/heat_mode_on, /heat_mode_off, /heat_on, /heat_off'
+          - '/main, /reserve'
+
+- alias: 005_telegramm_ping
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/ping'
+  action:
+  - service: mqtt.publish
+    data_template:
+       topic: "states/command"
+       payload_template: '001'
+       retain: true
+
+- alias: 005_telegramm_photo
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/photo'
+  action:
+    - service: script.turn_on
+      entity_id: script.photo_door
+      
+- alias: 005_telegramm_ilife
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/ilife'
+  action:
+  - service: mqtt.publish
+    data_template:
+       topic: "states/command"
+       payload_template: '002'
+       retain: true
+       
+- alias: 005_telegramm_heat_mode_on
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/heat_mode_on'
+  action:
+  - service: mqtt.publish
+    data_template:
+       topic: "states/command"
+       payload_template: '003'
+       retain: true
+       
+- alias: 005_telegramm_heat_mode_off
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/heat_mode_off'
+  action:
+  - service: mqtt.publish
+    data_template:
+       topic: "states/command"
+       payload_template: '004'
+       retain: true
+       
+- alias: 005_telegramm_heat_on
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/heat_on'
+  action:
+  - service: mqtt.publish
+    data_template:
+       topic: "states/command"
+       payload_template: '005'
+       retain: true
+
+- alias: 005_telegramm_heat_off
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/heat_off'
+  action:
+  - service: mqtt.publish
+    data_template:
+       topic: "states/command"
+       payload_template: '006'
+       retain: true

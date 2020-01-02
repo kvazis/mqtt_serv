@@ -220,6 +220,12 @@ views:
           - entity: sensor.rasp3b_state
             name: Raspberry Pi 3 B в онлайне -
             icon: mdi:clock-outline  
+          - entity: sensor.test_system_test_offline
+            name: Последняя потеря связи - 
+            icon: mdi:server-network-off
+          - entity: sensor.test_system_test_online
+            name: Восстановление связи - 
+            icon: mdi:server-network
             
             
   - title: Автоматизации
@@ -241,7 +247,7 @@ views:
             name: Режим бойлера - 
             icon: mdi:water-boiler
           - entity: sensor.mqtt_error_code
-            name: Последний код ошибки - 
+            name: Код ошибки - 
             icon: mdi:alert-circle
           - entity: sensor.mqtt_158d000119378d
             name: Входная дверь открывалась в - 

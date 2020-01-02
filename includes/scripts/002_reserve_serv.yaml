@@ -26,13 +26,11 @@
      - service: notify.telegram_alex
        data:
          message: | 
-             Резервный сервер Khadas VIM 2
-             Потеря связи в {{ states('sensor.main_system_reserve_offline') }} 
+             Потеря связи с резервным серевером в {{ states('sensor.main_system_reserve_offline') }} 
 
   telegramm_reserve_online:
     sequence:
      - service: notify.telegram_alex
        data:
          message: | 
-             Резервный сервер Khadas VIM 2
-             Связь восстановлена в {{ states('sensor.main_system_reserve_online') }} 
+             Связь с резервным серевером восстановлена в {{ states('sensor.main_system_reserve_online') }} 
