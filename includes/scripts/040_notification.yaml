@@ -12,12 +12,12 @@
       data_template:
         target:
          - !secret chat_id_alex
-         - !secret chat_id_olha
+        #  - !secret chat_id_olha
         file: "/config/www/cam_captures/reolink2.mp4"
         caption: "Кухня - {{ states('sensor.time') }}"
         
-  telegramm_041:
-    alias: Код 041 обнаружение протечки под раковиной в кухне
+  telegramm_a0400:
+    alias: Код 0400 обнаружение протечки под раковиной в кухне
     sequence:
     - service: telegram_bot.send_message
       data_template:
@@ -27,8 +27,8 @@
         message: 'Обнаружена протечка! Датчик под раковиной в кухне. Время события - {{ states.sensor.time_date.state }}'
 
         
-  telegramm_042:
-    alias: Код 042 устранение протечки под раковиной в кухне
+  telegramm_a0401:
+    alias: Код 0401 устранение протечки под раковиной в кухне
     sequence:
     - service: telegram_bot.send_message
       data_template:

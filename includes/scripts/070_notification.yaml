@@ -1,5 +1,5 @@
-  telegramm_070:
-    alias: Код 070 закончилась вода в увлажнителе, детская Д
+  telegramm_0700:
+    alias: Код 0700 закончилась вода в увлажнителе, детская Д
     sequence:
     - service: notify.telegram_alex
       data:

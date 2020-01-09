@@ -4,7 +4,7 @@
        data:
          message: | 
              Основной сервер Raspberry Pi 3 B+
-             Зафиксирован запуск в {{ states('sensor.main_system_send') }} 
+             Зафиксирован запуск в {{ states('sensor.time_date') }} 
              Отчет о состоянии будет через 1 минуту    
 
 
@@ -14,8 +14,8 @@
        data:
          message: | 
              Основной сервер Raspberry Pi 3 B+
-             Отчет за {{ states('sensor.main_system_report') }} 
-             Бытовые сценарии - {{ states('sensor.main_system_scenario') }} 
+             Отчет за {{ states('sensor.time_date') }}
+             Бытовые сценарии - {{ states('sensor.main_scenario_group') }} 
              {{"\U0001F4A1"}} недоступно - {{ states('sensor.main_system_unavailable_now_light') }} 
              {{"\U0001F50C"}} недоступно - {{ states('sensor.main_system_unavailable_now_switch') }} 
              Сенсоров недоступно - {{ states('sensor.main_system_unavailable_now_sensor') }} 
@@ -26,11 +26,11 @@
      - service: notify.telegram_alex
        data:
          message: | 
-             Потеря связи с основным серевером в {{ states('sensor.reserve_system_main_offline') }} 
+             Потеря связи с основным серевером в {{ states('sensor.time_date') }}
              
   telegramm_main_online:
     sequence:
      - service: notify.telegram_alex
        data:
          message: | 
-             Связь с основным серевером восстановлена в {{ states('sensor.reserve_system_main_online') }}
+             Связь с основным серевером восстановлена в {{ states('sensor.time_date') }}

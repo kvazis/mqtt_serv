@@ -1,0 +1,37 @@
+- id: Обработка alarm кодов
+  alias: alarm_code
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.alarm_code
+  action:
+    - service: script.turn_on
+      data_template:
+       entity_id: >-
+          {%- if states.sensor.alarm_code.state  == '000' -%}
+          script.stub
+          {%- elif states.sensor.alarm_code.state  == '0200' -%}
+          script.telegramm_a0200
+          {%- elif states.sensor.alarm_code.state  == '0201' -%}
+          script.telegramm_a0201
+          {%- elif states.sensor.alarm_code.state  == '0400' -%}
+          script.telegramm_a0400
+          {%- elif states.sensor.alarm_code.state  == '0401' -%}
+          script.telegramm_a0401
+          {%- elif states.sensor.alarm_code.state  == '0600' -%}
+          script.telegramm_a0600
+          {%- elif states.sensor.alarm_code.state  == '0601' -%}
+          script.telegramm_a0601
+          {%- elif states.sensor.alarm_code.state  == '0602' -%}
+          script.telegramm_a0602
+          {%- elif states.sensor.alarm_code.state  == '0603' -%}
+          script.telegramm_a0603
+          {%- else -%}
+          script.telegramm_unknown_error
+          {%- endif -%}
+    - delay: 00:00:01
+    - service: mqtt.publish
+      data_template:
+        topic: "notification/alarm"
+        payload_template: '000'
+        retain: true

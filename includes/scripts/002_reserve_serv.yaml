@@ -4,7 +4,7 @@
        data:
          message: | 
              Резервный сервер Khadas VIM 2
-             Зафиксирован запуск в {{ states('sensor.reserve_system_send') }} 
+             Зафиксирован запуск в {{ states('sensor.time_date') }}
              Отчет о состоянии будет через 1 минуту
 
 
@@ -14,8 +14,8 @@
        data:
          message: | 
              Резервный сервер Khadas VIM 2
-             Отчет за {{ states('sensor.reserve_system_send') }} 
-             Бытовые сценарии - {{ states('sensor.reserve_system_scenario') }} 
+             Отчет за {{ states('sensor.time_date') }}
+             Бытовые сценарии - {{ states('sensor.reserve_scenario_group') }} 
              {{"\U0001F4A1"}} недоступно - {{ states('sensor.reserve_system_unavailable_now_light') }} 
              {{"\U0001F50C"}} недоступно - {{ states('sensor.reserve_system_unavailable_now_switch') }} 
              Сенсоров недоступно - {{ states('sensor.reserve_system_unavailable_now_sensor') }} 
@@ -26,11 +26,11 @@
      - service: notify.telegram_alex
        data:
          message: | 
-             Потеря связи с резервным серевером в {{ states('sensor.main_system_reserve_offline') }} 
+             Потеря связи с резервным серевером в {{ states('sensor.time_date') }} 
 
   telegramm_reserve_online:
     sequence:
      - service: notify.telegram_alex
        data:
          message: | 
-             Связь с резервным серевером восстановлена в {{ states('sensor.main_system_reserve_online') }} 
+             Связь с резервным серевером восстановлена в {{ states('sensor.time_date') }}

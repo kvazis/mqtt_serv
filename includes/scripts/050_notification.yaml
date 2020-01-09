@@ -1,12 +1,12 @@
-  telegramm_050:
-    alias: Код 050 робот пылесос
+  telegramm_0500:
+    alias: Код 0500 робот пылесос
     sequence:
     - service: notify.telegram_alex
       data:
         message: "Робот пылесос вышел на тропу войны {{ states('sensor.time_date') }}"
         
-  telegramm_051:
-    alias: Код 051 гостиная, проветривание
+  telegramm_0501:
+    alias: Код 0501 гостиная, проветривание
     sequence:
     - service: notify.telegram_alex
       data:

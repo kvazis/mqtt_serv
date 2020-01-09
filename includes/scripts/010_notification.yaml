@@ -51,8 +51,8 @@
                       - file: /config/www/cam_captures/reolink2.jpg
                       - file: /config/www/cam_captures/reolink3.jpg  
                       
-  telegramm_011:
-    alias: Код 011 лампочка в прихожей
+  telegramm_101:
+    alias: Код 101 лампочка в прихожей
     sequence:
     - service: notify.telegram_alex
       data:

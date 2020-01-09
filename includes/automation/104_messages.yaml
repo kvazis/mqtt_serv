@@ -1,0 +1,41 @@
+- id: Обработка message кодов
+  alias: message_code
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.messages_code
+  action:
+    - service: script.turn_on
+      data_template:
+       entity_id: >-
+          {%- if states.sensor.messages_code.state  == '000' -%}
+          script.stub
+          {%- elif states.sensor.messages_code.state  == '0100' -%}
+          script.open_door
+          {%- elif states.sensor.messages_code.state  == '0101' -%}
+          script.telegramm_101
+          {%- elif states.sensor.messages_code.state  == '0400' -%}
+          script.video_reolink2
+          {%- elif states.sensor.messages_code.state  == '0500' -%}
+          script.telegramm_0500
+          {%- elif states.sensor.messages_code.state  == '0501' -%}
+          script.telegramm_0501
+          {%- elif states.sensor.messages_code.state  == '0600' -%}
+          script.telegramm_0600
+          {%- elif states.sensor.messages_code.state  == '0601' -%}
+          script.telegramm_0601
+          {%- elif states.sensor.messages_code.state  == '0602' -%}
+          script.telegramm_0602
+          {%- elif states.sensor.messages_code.state  == '0700' -%}
+          script.telegramm_0700
+          {%- elif states.sensor.messages_code.state  == '0800' -%}
+          script.telegramm_0800
+          {%- else -%}
+          script.telegramm_unknown_error
+          {%- endif -%}
+    - delay: 00:00:01
+    - service: mqtt.publish
+      data_template:
+        topic: "notification/messages"
+        payload_template: '000'
+        retain: true

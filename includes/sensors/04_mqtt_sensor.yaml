@@ -1,9 +1,19 @@
-# Код команд для уведомлений
+# Код alarm команд
   - platform: mqtt
-    state_topic: "states/error"
-    name: 'mqtt_error_code'
+    state_topic: "notification/alarm"
+    name: 'alarm_code'
 
-# Время последнего открытия входной двери
+# Код error команд
   - platform: mqtt
-    state_topic: "binary_sensor/158d000119378d"
-    name: 'mqtt_158d000119378d'
+    state_topic: "notification/error"
+    name: 'error_code'
+    
+# Код info команд
+  - platform: mqtt
+    state_topic: "notification/info"
+    name: 'info_code'
+    
+# Код messages команд
+  - platform: mqtt
+    state_topic: "notification/messages"
+    name: 'messages_code'

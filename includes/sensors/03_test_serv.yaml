@@ -8,9 +8,12 @@
    value_template: '{{ value_json.state }}'
    
  - platform: mqtt
-   name: "test_system_test_offline"
-   state_topic: "states/test/system/test_offline"
+   name: "status_google_backup_72"
+   state_topic: "googlebackup/raspberry72/result"
+   json_attributes_topic: "googlebackup/raspberry72/result"
    
- - platform: mqtt
-   name: "test_system_test_online"
-   state_topic: "states/test/system/test_online"
+ - platform: template
+   sensors:
+    last_google_backup_test:
+       friendly_name: 'Последний удачный бэкап тестового сервера - '
+       value_template: '{{ (as_timestamp(states.sensor.status_google_backup_72.attributes["backupTimestamp"]) + 7200) | timestamp_custom("%d.%m.%Y %H:%M") }}'

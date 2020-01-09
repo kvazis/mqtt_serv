@@ -1,0 +1,31 @@
+- id: Обработка info кодов
+  alias: info_code
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.info_code
+  action:
+    - service: script.turn_on
+      data_template:
+       entity_id: >-
+          {%- if states.sensor.info_code.state  == '000' -%}
+          script.stub
+          {%- elif states.sensor.info_code.state  == '011' -%}
+          script.telegramm_main_start
+          {%- elif states.sensor.info_code.state  == '012' -%}
+          script.telegramm_main_report
+          {%- elif states.sensor.info_code.state  == '021' -%}
+          script.telegramm_reserve_start
+          {%- elif states.sensor.info_code.state  == '022' -%}
+          script.telegramm_reserve_report
+          {%- elif states.sensor.info_code.state  == '031' -%}
+          script.telegramm_test_start
+          {%- else -%}
+          script.telegramm_unknown_error
+          {%- endif -%}
+    - delay: 00:00:01
+    - service: mqtt.publish
+      data_template:
+        topic: "notification/info"
+        payload_template: '000'
+        retain: true

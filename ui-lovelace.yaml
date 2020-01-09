@@ -125,28 +125,16 @@ views:
           - entity: sensor.main_state
             name: Raspberry Pi 3 B+ в онлайне -
             icon: mdi:clock-outline  
-          - entity: sensor.main_system_send
-            name: Время загрузки - 
-            icon: mdi:av-timer
+          - entity: sensor.last_google_backup_main
+            name: Последний удачный бэкап - 
+            icon: mdi:map-clock-outline
           - entity: sensor.main_scenario_group
             name: Бытовые сценарии
             icon: mdi:format-list-numbered
-          - entity: sensor.reserve_system_main_offline
-            name: Последняя потеря связи - 
-            icon: mdi:server-network-off
-          - entity: sensor.reserve_system_main_online
-            name: Восстановление связи - 
-            icon: mdi:server-network
 
         - type: entities
           show_header_toggle: false
           entities:
-          - entity: sensor.main_system_report
-            name: Время отчета - 
-            icon: mdi:av-timer
-          - entity: sensor.main_system_scenario
-            name: Бытовые сценарии - 
-            icon: mdi:format-list-numbered
           - entity: sensor.main_system_unavailable_now_light
             name: Недоступно светильников - 
             icon: mdi:lightbulb-off
@@ -173,28 +161,16 @@ views:
           - entity: sensor.reserve_state
             name: Khadas VIM2 в онлайне -
             icon: mdi:clock-outline
-          - entity: sensor.reserve_system_send
-            name: Время загрузки - 
-            icon: mdi:av-timer
+          - entity: sensor.last_google_backup_reserve
+            name: Последний удачный бэкап - 
+            icon: mdi:map-clock-outline
           - entity: sensor.reserve_scenario_group
             name: Бытовые сценарии
             icon: mdi:format-list-numbered
-          - entity: sensor.main_system_reserve_offline
-            name: Последняя потеря связи - 
-            icon: mdi:server-network-off
-          - entity: sensor.main_system_reserve_online
-            name: Восстановление связи - 
-            icon: mdi:server-network
-            
+
         - type: entities
           show_header_toggle: false
           entities:
-          - entity: sensor.reserve_system_report
-            name: Время отчета - 
-            icon: mdi:av-timer
-          - entity: sensor.reserve_system_scenario
-            name: Бытовые сценарии - 
-            icon: mdi:format-list-numbered
           - entity: sensor.reserve_system_unavailable_now_light
             name: Недоступно светильников - 
             icon: mdi:lightbulb-off
@@ -220,13 +196,10 @@ views:
           - entity: sensor.rasp3b_state
             name: Raspberry Pi 3 B в онлайне -
             icon: mdi:clock-outline  
-          - entity: sensor.test_system_test_offline
-            name: Последняя потеря связи - 
-            icon: mdi:server-network-off
-          - entity: sensor.test_system_test_online
-            name: Восстановление связи - 
-            icon: mdi:server-network
-            
+          - entity: sensor.last_google_backup_test
+            name: Последний удачный бэкап - 
+            icon: mdi:map-clock-outline
+
             
   - title: Автоматизации
     id: auto
@@ -243,15 +216,20 @@ views:
         - type: entities
           show_header_toggle: false
           entities:
+          - entity: binary_sensor.alarm_auto
+          - entity: sensor.alarm_code
+            icon: mdi:alert-circle          
+          - entity: sensor.error_code
+            icon: mdi:alert-circle 
+          - entity: sensor.info_code
+            icon: mdi:alert-circle
+          - entity: sensor.messages_code
+            icon: mdi:alert-circle
           - entity: binary_sensor.boiler
             name: Режим бойлера - 
             icon: mdi:water-boiler
-          - entity: sensor.mqtt_error_code
-            name: Код ошибки - 
-            icon: mdi:alert-circle
-          - entity: sensor.mqtt_158d000119378d
-            name: Входная дверь открывалась в - 
-            icon: mdi:door-open
+          - entity: binary_sensor.humidification
+            name: Режим увлажнения воздуха - 
 
       - type: vertical-stack
         cards:
@@ -265,13 +243,7 @@ views:
           - entity: script.test
             tap_action: 
               action: toggle
-            name: Тест
+            name: Тестовые коды
             icon: mdi:telegram  
-          - entity: script.video_reolink2
-            tap_action: 
-              action: toggle
-            name: video_reolink2
-            icon: mdi:telegram              
-            
             
             
