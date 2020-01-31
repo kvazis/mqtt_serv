@@ -1,4 +1,4 @@
-  telegramm_test_start:
+  telegramm_rasp3_start:
     sequence:
      - service: notify.telegram_alex
        data:
@@ -7,14 +7,14 @@
              Зафиксирован запуск в {{ states('sensor.time_date') }}  
 
 
-  telegramm_test_offline:
+  telegramm_rasp3_offline:
     sequence:
      - service: notify.telegram_alex
        data:
          message: | 
              Потеря связи с тестовым серевером в {{ states('sensor.time_date') }} 
              
-  telegramm_test_online:
+  telegramm_rasp3_online:
     sequence:
      - service: notify.telegram_alex
        data:

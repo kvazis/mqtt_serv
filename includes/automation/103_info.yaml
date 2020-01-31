@@ -19,6 +19,8 @@
           {%- elif states.sensor.info_code.state  == '022' -%}
           script.telegramm_reserve_report
           {%- elif states.sensor.info_code.state  == '031' -%}
+          script.telegramm_rasp3_start
+          {%- elif states.sensor.info_code.state  == '041' -%}
           script.telegramm_test_start
           {%- else -%}
           script.telegramm_unknown_error

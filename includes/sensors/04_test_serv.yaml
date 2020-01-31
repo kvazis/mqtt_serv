@@ -1,0 +1,19 @@
+- platform: rest
+  resource: http://192.168.0.74:8123/api/states/sensor.online_custom
+  name: test_state
+  force_update: true
+  headers: 
+    Authorization: !secret orangeplus_secret_token
+    content-type: 'application/json'
+  value_template: '{{ value_json.state }}'
+   
+- platform: mqtt
+  name: "status_google_backup_test"
+  state_topic: "googlebackup/orangepi/result"
+  json_attributes_topic: "googlebackup/orangepi/result"
+   
+- platform: template
+  sensors:
+    last_google_backup_test:
+      friendly_name: 'Последний удачный бэкап тестового сервера - '
+      value_template: '{{ (as_timestamp(states.sensor.status_google_backup_test.attributes["backupTimestamp"]) + 7200) | timestamp_custom("%d.%m.%Y %H:%M") }}'

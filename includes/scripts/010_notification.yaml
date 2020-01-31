@@ -29,27 +29,33 @@
          data:
               entity_id: camera.reolink3
               filename: "/config/www/cam_captures/reolink3.jpg"
-       - delay: 00:00:10
-       - service: notify.telegram_alex
-         data:
-              title: "Дверь"
-              message: "Фотография" 
-              data:
-                  photo:
-                      - file: /config/www/cam_captures/xiaofang.jpg
-                      - file: /config/www/cam_captures/reolink.jpg
-                      - file: /config/www/cam_captures/reolink2.jpg
-                      - file: /config/www/cam_captures/reolink3.jpg
-       - service: notify.telegram_olha
-         data:
-              title: "Дверь"
-              message: "Фотография" 
-              data:
-                  photo:
-                      - file: /config/www/cam_captures/xiaofang.jpg
-                      - file: /config/www/cam_captures/reolink.jpg
-                      - file: /config/www/cam_captures/reolink2.jpg
-                      - file: /config/www/cam_captures/reolink3.jpg  
+       - delay: 00:00:05
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/xiaofang.jpg"
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/reolink.jpg"
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/reolink2.jpg"  
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/reolink3.jpg"  
+         
+
                       
   telegramm_101:
     alias: Код 101 лампочка в прихожей
@@ -57,3 +63,4 @@
     - service: notify.telegram_alex
       data:
         message: "Потеря контроля в течении 5 минут - лампочка в прихожей.  Время события - {{ states('sensor.time_date') }} . Инициирована перезагрузка"
+        

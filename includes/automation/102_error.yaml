@@ -19,9 +19,21 @@
           {%- elif states.sensor.error_code.state  == '022' -%}
           script.telegramm_reserve_online
           {%- elif states.sensor.error_code.state  == '031' -%}
-          script.telegramm_test_offline
+          script.telegramm_rasp3_offline
           {%- elif states.sensor.error_code.state  == '032' -%}
+          script.telegramm_rasp3_online
+          {%- elif states.sensor.error_code.state  == '041' -%}
+          script.telegramm_test_offline
+          {%- elif states.sensor.error_code.state  == '042' -%}
           script.telegramm_test_online
+          {%- elif states.sensor.error_code.state  == '100' -%}
+          script.light_offline_main
+          {%- elif states.sensor.error_code.state  == '101' -%}
+          script.light_offline_reserve
+          {%- elif states.sensor.error_code.state  == '102' -%}
+          script.switch_offline_main
+          {%- elif states.sensor.error_code.state  == '103' -%}
+          script.switch_offline_reserve
           {%- else -%}
           script.telegramm_unknown_error
           {%- endif -%}

@@ -25,16 +25,17 @@ views:
             name: Home Assistant в онлайне -
             icon: mdi:clock
           - type: divider
-          - entity: group.scenario
-            name: Телеграмм сценарии - 
-            icon: mdi:telegram
-          - type: divider
           - entity: sensor.current_ha
             name: Установлен Home Assistant -
             icon: mdi:alpha-v-circle
           - entity: sensor.version
             name: Последний Home Assistant -
             icon: mdi:alpha-v-circle-outline
+            
+        - type: history-graph
+          entities:
+           - entity: sensor.maria_db_size
+             name: Maria DB
 
       - type: vertical-stack
         cards:
@@ -63,16 +64,32 @@ views:
                green: 0
                yellow: 60
                red: 85 
+               
+        - type: horizontal-stack
+          cards:
+
+           - type: gauge
+             name: Диск заполнен
+             unit: '%'
+             entity: sensor.disk_use_percent
+             severity:
+                green: 0
+                yellow: 60
+                red: 85    
+                
+           - type: gauge
+             name: Свободное место
+             unit: 'Гб'
+             entity: sensor.disk_free
+             severity:
+                red: 2
+                yellow: 6
+                green: 8
 
         - type: history-graph
           entities:
            - entity: sensor.cpu_temp
              name: Температура CPU
-
-        - type: history-graph
-          entities:
-           - entity: sensor.maria_db_size
-             name: Maria DB
 
 
       - type: vertical-stack
@@ -193,12 +210,39 @@ views:
         - type: entities
           show_header_toggle: false
           entities:
-          - entity: sensor.rasp3b_state
-            name: Raspberry Pi 3 B в онлайне -
+          - entity: sensor.test_state
+            name: Тестовый Orange Pi One Plus в онлайне -
             icon: mdi:clock-outline  
           - entity: sensor.last_google_backup_test
             name: Последний удачный бэкап - 
             icon: mdi:map-clock-outline
+
+  - title: Панель управления
+    icon: mdi:tools
+
+    cards:
+
+      - type: vertical-stack
+        cards:
+        
+        - type: markdown
+          content: >
+             **Реле**
+        - type: entities
+          show_header_toggle: false
+          entities:
+          - entity: switch.sonoff_1000d036a0_1
+            name: Реле Sonoff micro USB
+            icon: mdi:usb-port
+            
+        - type: entities
+          title: Добавление Zigbee устройств
+          show_header_toggle: false
+          entities:
+             - entity: input_boolean.zigbee_permit_join
+             - entity: timer.zigbee_permit_join
+             - entity: sensor.bridge_state
+
 
             
   - title: Автоматизации
@@ -206,6 +250,30 @@ views:
     icon: mdi:script
 
     cards:
+
+      - type: vertical-stack
+        cards:
+    
+        - type: markdown
+          content: >
+             **Автоматизации** 
+             
+        - type: entities
+          show_header_toggle: false
+          entities:   
+             
+          - entity: automation.alarm_code
+            name: Обработка alarm кодов - 
+            icon: mdi:telegram
+          - entity: automation.error_code
+            name: Обработка error кодов - 
+            icon: mdi:telegram
+          - entity: automation.info_code
+            name: Обработка info кодов - 
+            icon: mdi:telegram
+          - entity: automation.message_code
+            name: Обработка message кодов - 
+            icon: mdi:telegram
 
       - type: vertical-stack
         cards:
@@ -245,5 +313,7 @@ views:
               action: toggle
             name: Тестовые коды
             icon: mdi:telegram  
+          - entity: script.video_reolink2
+          - entity: script.photo_door
             
             

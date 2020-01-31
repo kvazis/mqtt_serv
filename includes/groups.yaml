@@ -1,10 +1,10 @@
 ###
-  scenario:
-    name: scenario
-    entities:
-      - automation.telegramm_main_start
-      - automation.telegramm_main_report
-      - automation.telegramm_reserve_start
-      - automation.telegramm_reserve_report
-      - automation.telegramm_test_start
-      - automation.telegramm_error_code
+#   scenario:
+#     name: scenario
+#     entities:
+#       - automation.telegramm_main_start
+#       - automation.telegramm_main_report
+#       - automation.telegramm_reserve_start
+#       - automation.telegramm_reserve_report
+#       - automation.telegramm_test_start
+#       - automation.telegramm_error_code

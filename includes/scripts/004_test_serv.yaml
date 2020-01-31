@@ -1,0 +1,21 @@
+  telegramm_test_start:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Тестовый сервер сервер Orange Pi one Plus
+             Зафиксирован запуск в {{ states('sensor.time_date') }}  
+             
+  telegramm_test_offline:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Потеря связи с тестовым серевером в {{ states('sensor.time_date') }} 
+             
+  telegramm_test_online:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: | 
+             Связь с тестовым серевером восстановлена в {{ states('sensor.time_date') }} 

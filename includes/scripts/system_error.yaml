@@ -1,0 +1,26 @@
+  light_offline_main:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: "Ошибка связи {{ states('sensor.time_date') }} , светильников недоступно - {{ states('sensor.main_system_unavailable_now_light') }} "
+         
+
+  light_offline_reserve:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: "Ошибка связи {{ states('sensor.time_date') }} , светильников недоступно - {{ states('sensor.reserve_system_unavailable_now_light') }} "
+
+
+  switch_offline_main:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: "Ошибка связи {{ states('sensor.time_date') }} , свичей недоступно - {{ states('sensor.main_system_unavailable_now_switch') }} "
+         
+
+  switch_offline_reserve:
+    sequence:
+     - service: notify.telegram_alex
+       data:
+         message: "Ошибка связи {{ states('sensor.time_date') }} , свичей недоступно - {{ states('sensor.reserve_system_unavailable_now_switch') }} "

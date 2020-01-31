@@ -3,20 +3,27 @@
     sequence:
     - service: mqtt.publish
       data_template:
-        topic: "notification/messages"
-        payload_template: '0600'
+        topic: "notification/error"
+        payload_template: '100'
         retain: true
     - delay: 00:00:05
     - service: mqtt.publish
       data_template:
-        topic: "notification/messages"
-        payload_template: '0601'
+        topic: "notification/error"
+        payload_template: '101'
         retain: true
     - delay: 00:00:05
     - service: mqtt.publish
       data_template:
-        topic: "notification/messages"
-        payload_template: '0602'
+        topic: "notification/error"
+        payload_template: '102'
         retain: true
+    - delay: 00:00:05
+    - service: mqtt.publish
+      data_template:
+        topic: "notification/error"
+        payload_template: '103'
+        retain: true
+
 
 

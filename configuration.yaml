@@ -23,14 +23,35 @@ default_config:
 # http:
 #   base_url: example.duckdns.org:8123
 
+# Enables support for tracking state changes over time
+# history:
+
+# View all events in a logbook
+# logbook:
+
+# Enables a map showing the location of tracked devices
+# map:
+
+
+
 # Text to speech
 tts:
   - platform: google_translate
 
 lovelace:
   mode: yaml
+  
+sonoff:
+  username: !secret sonoff_user
+  password: !secret sonoff_psw
+  scan_interval: 60 
+  grace_period: 600 
+  api_region: 'eu' 
+  entity_prefix: True 
+  debug: False
 
-
+timer: !include includes/timer.yaml
+input_boolean: !include includes/input_boolean.yaml
 recorder: !include includes/recorder.yaml
 group: !include includes/groups.yaml
 camera: !include includes/camera.yaml
@@ -59,10 +80,6 @@ rest_command:
     url: 'http://192.168.0.77:8055/gb/doBackup'
     timeout: '300'
 
-timer:
-  backup:
-    duration: '00:15:00'
-    
 counter:
   backup_stage:
     initial: 0
