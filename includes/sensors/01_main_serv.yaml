@@ -33,15 +33,16 @@
    state_topic: "instance/main/sensor/unavailable_now_binary_sensor/state"    
    
  - platform: mqtt
-   name: "status_google_backup_70"
-   state_topic: "googlebackup/main70/result"
-   json_attributes_topic: "googlebackup/main70/result"
+   name: "last_google_backup_main"
+   state_topic: "instance/main/sensor/last_google_backup_main/state"
    
- - platform: template
-   sensors:
-    last_google_backup_main:
-       friendly_name: 'Последний удачный бэкап основного сервера - '
-       value_template: '{{ (as_timestamp(states.sensor.status_google_backup_70.attributes["backupTimestamp"]) + 7200) | timestamp_custom("%d.%m.%Y %H:%M") }}'
+ - platform: mqtt
+   name: "snapshots_in_google_drive_main"
+   state_topic: "instance/main/sensor/snapshots_in_google_drive_main/state"
+   
+ - platform: mqtt
+   name: "snapshots_in_hassio_main"
+   state_topic: "instance/main/sensor/snapshots_in_hassio_main/state"
    
    
    

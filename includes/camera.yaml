@@ -10,19 +10,29 @@
     input: -rtsp_transport tcp -i rtsp://192.168.0.127:8554/unicast
 
 # Reolink - RLC-411WS
-  - platform: generic
+  - platform: ffmpeg
     name: Reolink
-    still_image_url: !secret reolink1_url
-    stream_source: !secret reolink1_rtsp
+    input: !secret reolink1_rtsp
 
 # Reolink C2 Pro
-  - platform: generic
+  - platform: ffmpeg
     name: Reolink2
-    still_image_url: !secret reolink2_url
-    stream_source: !secret reolink2_rtsp
+    input: !secret reolink2_rtsp
+
+#   - platform: onvif
+#     host: 192.168.0.128
+#     name: reolink_2
+#     username: !secret reolink_name
+#     password: !secret reolink_pass
+#     port: 8000
     
 # Reolink 410
-  - platform: generic
+  - platform: ffmpeg
     name: Reolink3
-    still_image_url: !secret reolink3_url
-    stream_source: !secret reolink3_rtsp
+    input: !secret reolink3_rtsp
+    
+# Reolink E1 Pro
+
+  - platform: ffmpeg
+    name: Reolink4
+    input: !secret reolink4_rtsp

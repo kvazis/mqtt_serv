@@ -10,6 +10,10 @@
        entity_id: >-
           {%- if states.sensor.alarm_code.state  == '000' -%}
           script.stub
+          {%- elif states.sensor.alarm_code.state  == '0100' -%}          
+          script.telegramm_a0100
+          {%- elif states.sensor.alarm_code.state  == '0101' -%}          
+          script.telegramm_a0101
           {%- elif states.sensor.alarm_code.state  == '0200' -%}
           script.telegramm_a0200
           {%- elif states.sensor.alarm_code.state  == '0201' -%}

@@ -31,102 +31,212 @@ views:
           - entity: sensor.version
             name: Последний Home Assistant -
             icon: mdi:alpha-v-circle-outline
+
             
-        - type: history-graph
-          entities:
-           - entity: sensor.maria_db_size
-             name: Maria DB
-
-      - type: vertical-stack
-        cards:
-
         - type: markdown
           content: >
-               **Система**   
-
-        - type: horizontal-stack
-          cards:
-
-          - type: gauge
-            name: Загрузка CPU
-            unit: '%'
-            entity: sensor.processor_use
-            severity:
-               green: 0
-               yellow: 60
-               red: 85 
-
-          - type: gauge
-            name: Загрузка ОЗУ
-            unit: '%'
-            entity: sensor.memory_use_percent
-            severity:
-               green: 0
-               yellow: 60
-               red: 85 
-               
-        - type: horizontal-stack
-          cards:
-
-           - type: gauge
-             name: Диск заполнен
-             unit: '%'
-             entity: sensor.disk_use_percent
-             severity:
-                green: 0
-                yellow: 60
-                red: 85    
-                
-           - type: gauge
-             name: Свободное место
-             unit: 'Гб'
-             entity: sensor.disk_free
-             severity:
-                red: 2
-                yellow: 6
-                green: 8
-
-        - type: history-graph
-          entities:
-           - entity: sensor.cpu_temp
-             name: Температура CPU
-
-
-      - type: vertical-stack
-        cards:
-
-        - type: markdown
-          content: >
-           **База, резервное копирование**
-
+             **Бекап**
+             
         - type: entities
           show_header_toggle: false
           entities:
-            - entity: script.ha_backup
-              name: Снапшот
-              icon: mdi:backup-restore 
-            - entity: counter.backup_stage
-              name: Фаза бэкапа - 
-            - entity: sensor.backup_phaze
-              name: Действие - 
-            - entity: timer.backup
-              name: Фаза завершается через - 
-            - entity: sensor.last_google_backup
-              icon: mdi:map-clock-outline
-            - entity: sensor.last_google_filecount
-              icon: mdi:file-search
-            - entity: sensor.last_google_alreadycount
-              icon: mdi:file-export
-            - entity: sensor.last_google_backedupcount
-              icon: mdi:google-plus-box
-            - entity: sensor.last_google_deletedcount
-              icon: mdi:file-remove
-            - entity: sensor.last_google_deletedfromgoogle
-              icon: mdi:folder-google-drive
-              
+          - entity: sensor.last_google_backup_mqtt
+          - entity: sensor.snapshots_in_google_drive_mqtt
+          - entity: sensor.snapshots_in_hassio_mqtt 
+            
+        - type: markdown
+          content: >
+             **Глобальные режимы**
+    
+        - type: entities
+          show_header_toggle: false
+          entities:
+          - entity: binary_sensor.holiday
+            name: Режим выходного дня - 
+            icon: mdi:calendar-account
+          - entity: binary_sensor.boiler
+            name: Режим нагрева бойлера - 
+            icon: mdi:water-boiler
+          - entity: binary_sensor.radiator
+            name: Режим работы батарей - 
+            icon: mdi:radiator
+          - entity: binary_sensor.humidification
+            name: Режим работы увлажнителей - 
+            icon: mdi:air-humidifier
+
+      - type: vertical-stack
+        cards:
+
+        - type: markdown
+          content: >
+               **Монитор системы**   
+
+        - type: custom:mini-graph-card
+          entities:
+           - entity: sensor.processor_use
+             name: Использование процессора
+          color_thresholds:
+            - value: 20
+              color: "#7FFF00"
+            - value: 40
+              color: "#98FB98"
+            - value: 60
+              color: "#FFFF00"
+            - value: 80
+              color: "#FF8C00"
+            - value: 100
+              color: "#DC143C"
+          animate: true
+          line_width: 2
+          hour24: true
+          points_per_hour: 1
+          group_by: hour
+          hours_to_show: 72
+
+        - type: custom:mini-graph-card
+          entities:
+           - entity: sensor.cpu_temp
+             name: Температура процессора
+          color_thresholds:
+            - value: 20
+              color: "#7FFF00"
+            - value: 40
+              color: "#98FB98"
+            - value: 60
+              color: "#FFFF00"
+            - value: 80
+              color: "#FF8C00"
+            - value: 100
+              color: "#DC143C"
+          animate: true
+          line_width: 2
+          hour24: true
+          points_per_hour: 1
+          group_by: hour
+          hours_to_show: 72
+          
+        - type: custom:mini-graph-card
+          entities:
+           - entity: sensor.memory_use_percent
+             name: Использование ОЗУ
+          color_thresholds:
+            - value: 20
+              color: "#7FFF00"
+            - value: 40
+              color: "#98FB98"
+            - value: 60
+              color: "#FFFF00"
+            - value: 80
+              color: "#FF8C00"
+            - value: 100
+              color: "#DC143C"
+          animate: true
+          line_width: 2
+          hour24: true
+          points_per_hour: 1
+          group_by: hour
+          hours_to_show: 72
+          
+      - type: vertical-stack
+        cards:
+      
+        - type: markdown
+          content: >
+             **Хранилище**
+
+        - type: custom:mini-graph-card
+          entities:
+           - entity: sensor.disk_use_percent
+             name: Использование диска
+          color_thresholds:
+            - value: 20
+              color: "#7FFF00"
+            - value: 40
+              color: "#98FB98"
+            - value: 60
+              color: "#FFFF00"
+            - value: 80
+              color: "#FF8C00"
+            - value: 100
+              color: "#DC143C"
+          animate: true
+          line_width: 2
+          hour24: true
+          points_per_hour: 1
+          group_by: hour
+          hours_to_show: 72
+      
+        - type: custom:mini-graph-card
+          entities:
+           - entity: sensor.disk_free
+             name: Свободно на диске
+          color_thresholds:
+            - value: 10
+              color: "#DC143C"
+            - value: 15
+              color: "#FF8C00"
+            - value: 20
+              color: "#FFFF00"
+            - value: 25
+              color: "#98FB98"
+            - value: 30
+              color: "#7FFF00"
+        #   show:
+        #       graph: bar
+          animate: true
+          line_width: 2
+          hour24: true
+          points_per_hour: 1
+          group_by: hour
+          hours_to_show: 72
+          
+        - type: custom:mini-graph-card
+          entities:
+           - entity: sensor.home_assistant_v2_db
+             name: Объем базы Home Assistant
+          color_thresholds:
+            - value: 500
+              color: "#7FFF00"
+            - value: 750
+              color: "#98FB98"
+            - value: 1000
+              color: "#FFFF00"
+            - value: 1250
+              color: "#FF8C00"
+            - value: 1500
+              color: "#DC143C"
+          animate: true
+          line_width: 2
+          hour24: true
+          points_per_hour: 1
+          group_by: hour
+          hours_to_show: 72
+
+        - type: custom:mini-graph-card
+          entities:
+           - entity: sensor.core
+             name: Объем ядра
+          color_thresholds:
+            - value: 10
+              color: "#7FFF00"
+            - value: 50
+              color: "#98FB98"
+            - value: 100
+              color: "#FFFF00"
+            - value: 150
+              color: "#FF8C00"
+            - value: 1500
+              color: "#DC143C"
+          animate: true
+          line_width: 2
+          hour24: true
+          points_per_hour: 1
+          group_by: hour
+          hours_to_show: 72
+
   - title: Мониторинг
     id: statе
-    icon: mdi:keyboard
+    icon: mdi:monitor-dashboard
 
     cards:
 
@@ -140,14 +250,25 @@ views:
           show_header_toggle: false
           entities:
           - entity: sensor.main_state
-            name: Raspberry Pi 3 B+ в онлайне -
+            name: Raspberry Pi 4 B 4GB в онлайне -
             icon: mdi:clock-outline  
-          - entity: sensor.last_google_backup_main
-            name: Последний удачный бэкап - 
-            icon: mdi:map-clock-outline
           - entity: sensor.main_scenario_group
             name: Бытовые сценарии
             icon: mdi:format-list-numbered
+      
+          - entity: sensor.last_google_backup_main
+            name: Последний удачный бэкап - 
+            icon: mdi:calendar-check-outline
+            
+          - entity: sensor.snapshots_in_google_drive_main
+            name: Снапшотов на Googe Drive - 
+            icon: mdi:folder-google-drive
+            
+          - entity: sensor.snapshots_in_hassio_main
+            name: Снапшотов в Наssio -
+            icon: mdi:home-assistant
+       
+
 
         - type: entities
           show_header_toggle: false
@@ -176,14 +297,23 @@ views:
           show_header_toggle: false
           entities:
           - entity: sensor.reserve_state
-            name: Khadas VIM2 в онлайне -
+            name: Raspberry Pi 4 B 2GB в онлайне -
             icon: mdi:clock-outline
-          - entity: sensor.last_google_backup_reserve
-            name: Последний удачный бэкап - 
-            icon: mdi:map-clock-outline
           - entity: sensor.reserve_scenario_group
             name: Бытовые сценарии
             icon: mdi:format-list-numbered
+            
+          - entity: sensor.last_google_backup_reserve
+            name: Последний удачный бэкап - 
+            icon: mdi:calendar-check-outline
+            
+          - entity: sensor.snapshots_in_google_drive_reserve
+            name: Снапшотов на Googe Drive - 
+            icon: mdi:folder-google-drive
+            
+          - entity: sensor.snapshots_in_hassio_reserve
+            name: Снапшотов в Наssio -
+            icon: mdi:home-assistant
 
         - type: entities
           show_header_toggle: false
@@ -203,46 +333,254 @@ views:
             
       - type: vertical-stack
         cards:
-
+            
         - type: markdown
           content: >
-             **Состояние тестового сервера**
+             **Состояние mqtt сервера**
+
         - type: entities
           show_header_toggle: false
           entities:
-          - entity: sensor.test_state
-            name: Тестовый Orange Pi One Plus в онлайне -
-            icon: mdi:clock-outline  
-          - entity: sensor.last_google_backup_test
+          - entity: sensor.last_boot_custom
+            name: Orange PI PC 2 в онлайне -
+            icon: mdi:clock-outline
+
+          - entity: sensor.last_google_backup_mqtt
             name: Последний удачный бэкап - 
-            icon: mdi:map-clock-outline
+            icon: mdi:calendar-check-outline
+            
+          - entity: sensor.snapshots_in_google_drive_mqtt
+            name: Снапшотов на Googe Drive - 
+            icon: mdi:folder-google-drive
+            
+          - entity: sensor.snapshots_in_hassio_mqtt
+            name: Снапшотов в Наssio -
+            icon: mdi:home-assistant
 
+        - type: entities
+          show_header_toggle: false
+          entities:
+          - entity: sensor.unavailable_now_light
+            name: Недоступно светильников - 
+            icon: mdi:lightbulb-off
+          - entity: sensor.unavailable_now_switch
+            name: Недоступно реле - 
+            icon: mdi:power-plug-off
+          - entity: sensor.unavailable_now_sensor
+            name: Недоступно сенсоров - 
+            icon: mdi:credit-card-wireless
+          - entity: sensor.unavailable_now_binary_sensor
+            name: Недоступно бинарных сенсоров - 
+            icon: mdi:ab-testing
+    
   - title: Панель управления
-    icon: mdi:tools
-
+    icon: mdi:keyboard
     cards:
 
       - type: vertical-stack
         cards:
-        
+    
         - type: markdown
           content: >
-             **Реле**
-        - type: entities
-          show_header_toggle: false
-          entities:
-          - entity: switch.sonoff_1000d036a0_1
-            name: Реле Sonoff micro USB
-            icon: mdi:usb-port
-            
-        - type: entities
-          title: Добавление Zigbee устройств
-          show_header_toggle: false
-          entities:
-             - entity: input_boolean.zigbee_permit_join
-             - entity: timer.zigbee_permit_join
-             - entity: sensor.bridge_state
+             **Автоматизации и скрипты**   
 
+        - type: entities
+          show_header_toggle: false
+          entities:
+            - entity: sensor.count_automation
+              icon: mdi:counter
+            - entity: sensor.count_automation_on
+              icon: mdi:check
+            - entity: sensor.count_automation_off
+              icon: mdi:close-circle-outline
+            - entity: sensor.count_script
+              icon: mdi:counter
+            - entity: sensor.count_script_on
+              icon: mdi:check
+            - entity: sensor.count_script_off
+              icon: mdi:close-circle-outline
+    
+      - type: vertical-stack
+        cards:
+
+        - type: markdown
+          content: >
+              **Отвалившиеся реле**
+              
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+             - entity_id: sensor.unavailable_now_switch
+               options:
+                  secondary_info: last-changed
+            exclude:
+             - state: '< 1'
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+             - domain: switch
+               state: 'unavailable'
+               options:
+                  secondary_info: last-changed 
+
+        - type: markdown
+          content: >
+              **Отвалившиеся светильники**
+              
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+             - entity_id: sensor.unavailable_now_light
+               options:
+                  secondary_info: last-changed
+            exclude:
+             - state: '< 1'
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+             - domain: light
+               state: 'unavailable'
+               options:
+                  secondary_info: last-changed 
+                  
+      - type: vertical-stack
+        cards:
+
+        - type: markdown
+          content: >
+              **Отвалившиеся сенсоры**
+              
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+             - entity_id: sensor.unavailable_now_sensor
+               options:
+                  secondary_info: last-changed
+            exclude:
+             - state: '< 1'
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+             - domain: sensor
+               state: 'unavailable'
+               options:
+                  secondary_info: last-changed
+                  
+        - type: markdown
+          content: >
+              **Отвалившиеся бинарные сенсоры**
+              
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+             - entity_id: sensor.unavailable_now_binary_sensor
+               options:
+                  secondary_info: last-changed
+            exclude:
+             - state: '< 1'
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+             - domain: binary_sensor
+               state: 'unavailable'
+               options:
+                  secondary_info: last-changed
+
+
+  - title: Камеры в квартире
+    icon: mdi:webcam
+    cards:
+    
+      - type: vertical-stack
+        cards:
+    
+        - type: markdown
+          content: >
+             **Reolink RLC-411WS** 
+        - type: picture-entity
+          entity: camera.reolink
+          camera_view: live 
+          show_state: false
+          show_name: false
+        - type: markdown
+          content: >
+             **Reolink RLC-410WS**               
+        - type: picture-entity
+          entity: camera.reolink3
+          camera_view: live 
+          show_state: false
+          show_name: false
+    
+
+          
+      - type: vertical-stack
+        cards:
+    
+        - type: markdown
+          content: >
+             **Xiaofang**         
+        - type: picture-entity
+          entity: camera.xiaofang
+        #   camera_view: live 
+          show_state: false
+          show_name: false
+
+        - type: markdown
+          content: >
+             **Reolink C2-Pro** 
+        - type: picture-entity
+          entity: camera.reolink2
+          camera_view: live 
+          show_state: false
+          show_name: false
+          
+          
+      - type: vertical-stack
+        cards:
+        
+        - type: picture-entity
+          entity: camera.reolink4
+          camera_view: live 
+          show_state: false
+          show_name: false
+        
+        - type: picture-entity
+          entity: camera.xiaofang1s
+          camera_view: live 
+          show_state: false
+          show_name: false
 
             
   - title: Автоматизации
@@ -274,6 +612,17 @@ views:
           - entity: automation.message_code
             name: Обработка message кодов - 
             icon: mdi:telegram
+            
+        - type: markdown
+          content: >
+             **Скрипты**
+        - type: entities
+          show_header_toggle: false
+          entities:
+          - entity: script.selftest
+          - entity: script.sensitivity
+          - entity: script.get_info
+          - entity: script.set_info
 
       - type: vertical-stack
         cards:
@@ -297,7 +646,13 @@ views:
             name: Режим бойлера - 
             icon: mdi:water-boiler
           - entity: binary_sensor.humidification
-            name: Режим увлажнения воздуха - 
+            name: Режим увлажнения воздуха -
+          - entity: binary_sensor.radiator
+            name: Режим отопления - 
+          - entity: binary_sensor.holiday
+            name: Режим выходного дня -
+          - entity: binary_sensor.vacancy
+            name: Режим отпуск - 
 
       - type: vertical-stack
         cards:
@@ -313,7 +668,30 @@ views:
               action: toggle
             name: Тестовые коды
             icon: mdi:telegram  
+          - entity: script.photo_xiaofang
+          - entity: script.photo_xiaofang1s
+          - entity: script.photo_reolink
+          - entity: script.photo_reolink2
+          - entity: script.photo_reolink3
+          - entity: script.photo_reolink4
           - entity: script.video_reolink2
-          - entity: script.photo_door
-            
+
+
+          - type: custom:auto-entities
+            show_empty: false
+            card:
+              type: entities
+              show_header_toggle: false
+            filter:
+              include:
+               - domain: script
+                 options:
+                    secondary_info: last-triggered
+                 sort:
+                   method: attribute
+                   attribute: last_triggered
+                   reverse: true
+              sort:
+                 method: entity_id            
+
             

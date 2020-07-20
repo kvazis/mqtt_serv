@@ -14,13 +14,21 @@
       friendly_name: 'Последняя версия - '
       value_template: '{{ states.binary_sensor.updater.attributes["newest_version"] }}'
 
-- platform: sql
-  db_url: mysql://hass:hass@core-mariadb/homeassistant?charset=utf8
-  queries:
-    - name: Maria DB size
-      query: 'SELECT table_schema "database", Round(Sum(data_length + index_length) / 1048576, 2) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
-      column: 'value'
-      unit_of_measurement: MB
+# - platform: sql
+#   db_url: mysql://hass:hass@core-mariadb/homeassistant?charset=utf8
+#   queries:
+#     - name: Maria DB size
+#       query: 'SELECT table_schema "database", Round(Sum(data_length + index_length) / 1048576, 2) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
+#       column: 'value'
+#       unit_of_measurement: MB
+
+- platform: filesize
+  file_paths:
+     - /config/home-assistant_v2.db
+     
+- platform: filesize
+  file_paths:
+     - /config/core
       
 - platform: systemmonitor
   resources:

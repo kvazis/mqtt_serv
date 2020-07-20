@@ -1,0 +1,107 @@
+  photo_xiaofang:
+    alias: Фотография xiaofang и отправка в телеграмм
+    sequence:
+       - service: camera.snapshot
+         data:
+              entity_id: camera.xiaofang
+              filename: "/config/www/cam_captures/xiaofang.jpg"
+       - delay: 00:00:12
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/xiaofang.jpg"
+           
+  photo_xiaofang1s:
+    alias: Фотография xiaofang 1s и отправка в телеграмм
+    sequence:
+       - service: camera.snapshot
+         data:
+              entity_id: camera.xiaofang1s
+              filename: "/config/www/cam_captures/xiaofang1s.jpg"
+       - delay: 00:00:10
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/xiaofang1s.jpg"
+
+  photo_reolink:
+    alias: Фотография Reolink 411 и отправка в телеграмм
+    sequence:
+       - service: camera.snapshot
+         data:
+              entity_id: camera.reolink
+              filename: "/config/www/cam_captures/reolink.jpg"
+       - delay: 00:00:10
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/reolink.jpg"
+
+  photo_reolink2:
+    alias: Фотография Reolink C2 и отправка в телеграмм
+    sequence:
+       - service: camera.snapshot
+         data:
+              entity_id: camera.reolink2
+              filename: "/config/www/cam_captures/reolink2.jpg"
+       - delay: 00:00:12
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/reolink2.jpg"  
+
+  photo_reolink3:
+    alias: Фотография Reolink 410 и отправка в телеграмм
+    sequence:
+       - service: camera.snapshot
+         data:
+              entity_id: camera.reolink3
+              filename: "/config/www/cam_captures/reolink3.jpg"
+       - delay: 00:00:10
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/reolink3.jpg"  
+           
+  photo_reolink4:
+    alias: Фотография Reolink E1 и отправка в телеграмм
+    sequence:
+       - service: camera.snapshot
+         data:
+              entity_id: camera.reolink4
+              filename: "/config/www/cam_captures/reolink4.jpg"
+       - delay: 00:00:10
+       - service: telegram_bot.send_photo
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           file: "/config/www/cam_captures/reolink4.jpg"  
+           
+  video_reolink2:
+    alias: Запись с камеры Реолинк С2 и отправка в телеграмм
+    sequence:
+    - service: camera.record
+      data_template:
+        entity_id: camera.reolink2
+        filename: "/config/www/cam_captures/reolink2.mp4"
+        lookback: 5
+        duration: 15
+    - delay: 00:00:45
+    - service: telegram_bot.send_video
+      data_template:
+        target:
+         - !secret chat_id_alex
+        #  - !secret chat_id_olha
+        file: "/config/www/cam_captures/reolink2.mp4"
+        caption: "Кухня - {{ states('sensor.time') }}"

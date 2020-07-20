@@ -1,0 +1,86 @@
+  - platform: template
+    sensors:
+
+      count_automation:
+        friendly_name: "Автоматизаций в системе - "
+        entity_id:
+          - sensor.time
+        value_template: >
+          {%- set domains = ['automation'] -%}
+          {%- for domain in domains -%}
+            {%- for item in states[domain] -%}
+              {% if loop.first %}
+                {{loop.length}}
+              {% endif %}
+            {%- endfor -%}
+          {%- endfor -%}
+
+      count_automation_on:
+        friendly_name: "Активных автоматизаций - "
+        entity_id:
+          - sensor.time
+        value_template: "{{states.automation | selectattr ('state', 'equalto', 'on') | list | length}}"
+        icon_template: mdi:counter
+        
+      count_automation_off:
+        friendly_name: "Отключенных автоматизаций - "
+        entity_id:
+          - sensor.time
+        value_template: "{{states.automation | selectattr ('state', 'equalto', 'off') | list | length}}"
+        icon_template: mdi:counter
+
+      count_script:
+        friendly_name: "Cкриптов в системе - "
+        entity_id:
+          - sensor.time
+        value_template: >
+          {%- set domains = ['script'] -%}
+          {%- for domain in domains -%}
+            {%- for item in states[domain] -%}
+              {% if loop.first %}
+                {{loop.length}}
+              {% endif %}
+            {%- endfor -%}
+          {%- endfor -%}
+        
+      count_script_on:
+        friendly_name: "Выполняющихся скриптов - "
+        entity_id:
+          - sensor.time
+        value_template: "{{states.script | selectattr ('state', 'equalto', 'on') | list | length}}"
+        icon_template: mdi:counter
+        
+      count_script_off:
+        friendly_name: "Выключенных скриптов - "
+        entity_id:
+          - sensor.time
+        value_template: "{{states.script | selectattr ('state', 'equalto', 'off') | list | length}}"
+        icon_template: mdi:counter
+
+      unavailable_now_light:
+        friendly_name: "Всего недоступных светильников - "
+        entity_id:
+          - sensor.time
+        value_template: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+        icon_template: mdi:counter
+        
+      unavailable_now_switch:
+        friendly_name: "Всего недоступных реле - "
+        entity_id:
+          - sensor.time
+        value_template: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+        icon_template: mdi:counter
+        
+      unavailable_now_sensor:
+        friendly_name: "Всего недоступных сенсоров - "
+        entity_id:
+          - sensor.time
+        value_template: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+        icon_template: mdi:counter
+
+      unavailable_now_binary_sensor:
+        friendly_name: "Всего недоступных бинарных сенсоров - "
+        entity_id:
+          - sensor.time
+        value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+        icon_template: mdi:counter

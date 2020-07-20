@@ -4,7 +4,7 @@
       - service: notify.telegram_alex
         data:
            message: | 
-               MQTT сервер Orange Pi PC 2 запущен в {{ states('sensor.time_date') }} 
+               MQTT сервер Orange PI PC 2 запущен в {{ states('sensor.time_date') }} 
                
   stub:
     sequence:

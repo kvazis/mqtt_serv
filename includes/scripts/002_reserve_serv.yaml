@@ -3,9 +3,9 @@
      - service: notify.telegram_alex
        data:
          message: | 
-             Резервный сервер Khadas VIM 2
-             Зафиксирован запуск в {{ states('sensor.time_date') }}
-             Отчет о состоянии будет через 1 минуту
+             {{"\U0001F4AC"}} Резервный сервер Raspberry Pi 4 B 2GB
+             {{"\U0001F567"}} Зафиксирован запуск в {{ states('sensor.time_date') }}
+             {{"\U0001F4C3"}} Отчет о состоянии будет через 1 минуту
 
 
   telegramm_reserve_report:
@@ -13,24 +13,24 @@
      - service: notify.telegram_alex
        data:
          message: | 
-             Резервный сервер Khadas VIM 2
-             Отчет за {{ states('sensor.time_date') }}
-             Бытовые сценарии - {{ states('sensor.reserve_scenario_group') }} 
+             {{"\U0001F4AC"}} Резервный сервер Raspberry Pi 4 B 2GB
+             {{"\U0001F567"}} Отчет за {{ states('sensor.time_date') }}
+             {{"\U0001F4DC"}} Бытовые сценарии - {{ states('sensor.reserve_scenario_group') }} 
              {{"\U0001F4A1"}} недоступно - {{ states('sensor.reserve_system_unavailable_now_light') }} 
              {{"\U0001F50C"}} недоступно - {{ states('sensor.reserve_system_unavailable_now_switch') }} 
-             Сенсоров недоступно - {{ states('sensor.reserve_system_unavailable_now_sensor') }} 
-             Бинарных сенсоров недоступно - {{ states('sensor.reserve_system_unavailable_now_binary_sensor') }} 
+             {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.reserve_system_unavailable_now_sensor') }} 
+             {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.reserve_system_unavailable_now_binary_sensor') }} 
              
   telegramm_reserve_offline:
     sequence:
      - service: notify.telegram_alex
        data:
          message: | 
-             Потеря связи с резервным серевером в {{ states('sensor.time_date') }} 
+             {{"\U0001F4AC"}} Потеря связи с резервным серевером в {{ states('sensor.time_date') }} 
 
   telegramm_reserve_online:
     sequence:
      - service: notify.telegram_alex
        data:
          message: | 
-             Связь с резервным серевером восстановлена в {{ states('sensor.time_date') }}
+             {{"\U0001F4AC"}} Связь с резервным серевером восстановлена в {{ states('sensor.time_date') }}

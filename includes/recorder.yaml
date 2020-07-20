@@ -1,5 +1,6 @@
-  db_url: !secret db_link
-  purge_keep_days: 2
+  db_url: sqlite:////config/home-assistant_v2.db
+  purge_keep_days: 3
+  auto_purge: true
   include:
     entities:
 # Системные сенсоры
@@ -8,7 +9,8 @@
        - sensor.memory_use_percent
        - sensor.disk_use_percent
        - sensor.disk_free
-       - sensor.maria_db_size
+       - sensor.home_assistant_v2_db
+       - sensor.core
 # Основной сервер       
        - sensor.main_system_send
        - sensor.main_system_scenario

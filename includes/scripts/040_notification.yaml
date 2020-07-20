@@ -1,21 +1,3 @@
-  video_reolink2:
-    alias: Запись с камеры Реолинк С2
-    sequence:
-    - service: camera.record
-      data_template:
-        entity_id: camera.reolink2
-        filename: "/config/www/cam_captures/reolink2.mp4"
-        lookback: 5
-        duration: 15
-    - delay: 00:00:30
-    - service: telegram_bot.send_video
-      data_template:
-        target:
-         - !secret chat_id_alex
-        #  - !secret chat_id_olha
-        file: "/config/www/cam_captures/reolink2.mp4"
-        caption: "Кухня - {{ states('sensor.time') }}"
-        
   telegramm_a0400:
     alias: Код 0400 обнаружение протечки под раковиной в кухне
     sequence:

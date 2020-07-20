@@ -1,0 +1,6 @@
+#   base_topic: exchange
+#   include:
+#     entities:
+#       - sensor.u_s_main_pollutant
+#       - sensor.u_s_air_quality_index
+#       - sensor.u_s_air_pollution_level

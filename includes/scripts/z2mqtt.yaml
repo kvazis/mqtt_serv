@@ -1,0 +1,30 @@
+  selftest:
+    sequence:
+      - service: mqtt.publish
+        data_template:
+          topic: "zigbee2mqtt/EN smoke sensor/set"
+          payload_template: '{"selftest": ""}'
+  
+  sensitivity:
+    sequence:
+      - service: mqtt.publish
+        data_template:
+        #   topic: "zigbee2mqtt/CR vibration/set"
+          topic: "zigbee2mqtt/EN smoke sensor/set"
+          payload_template: '{"sensitivity": "high"}'
+          
+          
+          
+  get_info:  
+    sequence:
+      - service: mqtt.publish
+        data_template:
+          topic: "zigbee2mqtt/LR wd 2ch light cell 1/get"
+          payload_template: '{ "operation_mode": {"button": "right"}}'
+          
+  set_info:  
+    sequence:
+      - service: mqtt.publish
+        data_template:
+          topic: "zigbee2mqtt/BT wd 2ch enter/set"
+          payload_template: '{ "operation_mode": {"button": "right", "state": "decoupled"}}'

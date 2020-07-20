@@ -10,26 +10,48 @@
        entity_id: >-
           {%- if states.sensor.messages_code.state  == '000' -%}
           script.stub
+          {%- elif states.sensor.messages_code.state  == '0001' -%}
+          script.photo_xiaofang
+          {%- elif states.sensor.messages_code.state  == '0002' -%}
+          script.photo_xiaofang1s                 
+          {%- elif states.sensor.messages_code.state  == '0003' -%}
+          script.photo_reolink
+          {%- elif states.sensor.messages_code.state  == '0004' -%}
+          script.photo_reolink2
+          {%- elif states.sensor.messages_code.state  == '0005' -%}
+          script.photo_reolink3             
+          {%- elif states.sensor.messages_code.state  == '0006' -%}
+          script.photo_reolink4
+          {%- elif states.sensor.messages_code.state  == '0014' -%}
+          script.video_reolink2          
           {%- elif states.sensor.messages_code.state  == '0100' -%}
           script.open_door
           {%- elif states.sensor.messages_code.state  == '0101' -%}
           script.telegramm_101
+          {%- elif states.sensor.messages_code.state  == '0200' -%}
+          script.telegramm_200
           {%- elif states.sensor.messages_code.state  == '0400' -%}
           script.video_reolink2
           {%- elif states.sensor.messages_code.state  == '0500' -%}
           script.telegramm_0500
           {%- elif states.sensor.messages_code.state  == '0501' -%}
           script.telegramm_0501
+          {%- elif states.sensor.messages_code.state  == '0502' -%}
+          script.telegramm_0502
           {%- elif states.sensor.messages_code.state  == '0600' -%}
           script.telegramm_0600
           {%- elif states.sensor.messages_code.state  == '0601' -%}
           script.telegramm_0601
           {%- elif states.sensor.messages_code.state  == '0602' -%}
           script.telegramm_0602
+          {%- elif states.sensor.messages_code.state  == '0603' -%}
+          script.telegramm_0603
           {%- elif states.sensor.messages_code.state  == '0700' -%}
           script.telegramm_0700
           {%- elif states.sensor.messages_code.state  == '0800' -%}
           script.telegramm_0800
+          {%- elif states.sensor.messages_code.state  == '0801' -%}
+          script.telegramm_0801
           {%- else -%}
           script.telegramm_unknown_error
           {%- endif -%}

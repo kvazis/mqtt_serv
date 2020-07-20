@@ -11,3 +11,10 @@
     - service: notify.telegram_alex
       data:
         message: "Гостиная {{ states('sensor.time_date') }} - хорошо бы проветрить"
+        
+  telegramm_0502:
+    alias: Код 0502 люстра 1 в гостиной
+    sequence:
+    - service: notify.telegram_alex
+      data:
+        message: "Потеря контроля в течении 5 минут - люстра 1 в гостиной.  Время события - {{ states('sensor.time_date') }} . Инициирована перезагрузка"

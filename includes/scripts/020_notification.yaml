@@ -18,3 +18,10 @@
          - !secret chat_id_alex
          - !secret chat_id_olha
         message: 'Протечка устранена. Датчик возле стиральной машины. Время события - {{ states.sensor.time_date.state }}'
+        
+  telegramm_200:
+    alias: Код 200 люстра в туалете
+    sequence:
+    - service: notify.telegram_alex
+      data:
+        message: "Потеря контроля в течении 5 минут - люстра в туалете.  Время события - {{ states('sensor.time_date') }} . Инициирована перезагрузка"

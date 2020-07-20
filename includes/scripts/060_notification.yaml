@@ -71,6 +71,13 @@
         message: 'Включение бойлера невозможно, отключен режим нагрева воды. Время события - {{ states.sensor.time_date.state }}'
 
         
+  telegramm_0603:
+    alias: Код 0603 люстра в ванной
+    sequence:
+    - service: notify.telegram_alex
+      data:
+        message: "Потеря контроля в течении 5 минут - люстра в ванной.  Время события - {{ states('sensor.time_date') }} . Инициирована перезагрузка"
+        
         
         
         

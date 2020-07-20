@@ -11,7 +11,7 @@
       message: 'commands'
       data:
         keyboard:
-          - '/ping, /photo, /ilife'
+          - '/ping, /vacancy, /photo, /ilife'
           - '/heat_mode_on, /heat_mode_off, /heat_on, /heat_off'
           - '/main, /reserve'
 
@@ -28,7 +28,7 @@
        topic: "states/command"
        payload_template: '001'
        retain: true
-
+       
 - alias: 005_telegramm_photo
   initial_state: true
   trigger:
@@ -37,8 +37,12 @@
     event_data:
       command: '/photo'
   action:
-    - service: script.turn_on
-      entity_id: script.photo_door
+   - service: script.turn_on
+     entity_id: 
+        - script.photo_xiaofang
+        - script.photo_reolink
+        - script.photo_reolink2
+        - script.photo_reolink3
       
 - alias: 005_telegramm_ilife
   initial_state: true
@@ -108,4 +112,18 @@
     data_template:
        topic: "states/command"
        payload_template: '006'
+       retain: true
+       
+- alias: 005_telegramm_vacancy
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/vacancy'
+  action:
+  - service: mqtt.publish
+    data_template:
+       topic: "states/command"
+       payload_template: '007'
        retain: true

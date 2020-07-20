@@ -16,23 +16,31 @@ homeassistant:
   whitelist_external_dirs :
    - /config
 
-# Configure a default setup of Home Assistant (frontend, api, etc)
-default_config:
+# Стандартный набор для интерфейса
+# default_config:
 
-# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-# http:
-#   base_url: example.duckdns.org:8123
+# Ручная конфигурация
+# Отображение панели настроек в интерфейсе
+config:
+history:
 
-# Enables support for tracking state changes over time
-# history:
-
-# View all events in a logbook
-# logbook:
-
-# Enables a map showing the location of tracked devices
-# map:
-
-
+# Включение официального интерфейса
+frontend:
+  themes: !include_dir_merge_named themes
+# Включение карты
+map:
+# Включение поддержки приложения
+mobile_app:
+# Отслеживание солнца
+sun:
+#Сканирование доступных устройств в сети
+ssdp:
+# API для предоставления информации о системе и ее компонентах
+system_health:
+# Сенсор для отображения последней версии НА
+updater:
+# Потоковое изображение с камер
+stream:
 
 # Text to speech
 tts:
@@ -40,18 +48,12 @@ tts:
 
 lovelace:
   mode: yaml
+  resources:
+   - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+     type: module
+   - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
+     type: module
   
-sonoff:
-  username: !secret sonoff_user
-  password: !secret sonoff_psw
-  scan_interval: 60 
-  grace_period: 600 
-  api_region: 'eu' 
-  entity_prefix: True 
-  debug: False
-
-timer: !include includes/timer.yaml
-input_boolean: !include includes/input_boolean.yaml
 recorder: !include includes/recorder.yaml
 group: !include includes/groups.yaml
 camera: !include includes/camera.yaml
@@ -59,32 +61,15 @@ binary_sensor: !include_dir_merge_list includes/bin_sensor
 automation: !include_dir_merge_list includes/automation
 sensor: !include_dir_merge_list includes/sensors
 script: !include_dir_merge_named includes/scripts
+# mqtt_statestream: !include includes/mqtt_statestream.yaml
  
-
 mqtt:
   broker: core-mosquitto
   discovery: true
   discovery_prefix: homeassistant  
   username: mqtt
   password: mqtt
-#   birth_message:
-#     topic: 'hass/status'
-#     payload: 'online'
-#   will_message:
-#     topic: 'hass/status'
-#     payload: 'offline'
 
-
-rest_command:
-  google_backup:
-    url: 'http://192.168.0.77:8055/gb/doBackup'
-    timeout: '300'
-
-counter:
-  backup_stage:
-    initial: 0
-    step: 1
-    
 telegram_bot:
   - platform: polling
     api_key: !secret api_key_77

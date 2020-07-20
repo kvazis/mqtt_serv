@@ -1,3 +1,32 @@
+  telegramm_a0100:
+    alias: Код 0100 обнаружение дыма
+    sequence:
+       - service: telegram_bot.send_message
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           message: 'Дым в прихожей! Время события - {{ states.sensor.time_date.state }}'
+       - service: script.turn_on
+         entity_id: 
+            - script.photo_xiaofang
+            - script.photo_reolink2
+
+  telegramm_a0101:
+    alias: Код 0101 задымление устранено
+    sequence:
+       - service: telegram_bot.send_message
+         data_template:
+           target:
+            - !secret chat_id_alex
+            - !secret chat_id_olha
+           message: 'Задымление устранено. Время события - {{ states.sensor.time_date.state }}'
+       - service: script.turn_on
+         entity_id: 
+            - script.photo_xiaofang
+            - script.photo_reolink2
+
+
   open_door:
     alias: Уведомление об открытии двери
     sequence:
@@ -8,55 +37,12 @@
             - !secret chat_id_olha
            message: 'Входная дверь открыта в {{ states.sensor.time_date.state }}'    
        - service: script.turn_on
-         entity_id: script.photo_door  
+         entity_id: 
+            - script.photo_xiaofang
+            - script.photo_reolink
+            - script.photo_reolink2
+            - script.photo_reolink3
 
-  photo_door:
-    alias: Фотографии на входе и отправка в телеграмм
-    sequence:
-       - service: camera.snapshot
-         data:
-              entity_id: camera.xiaofang
-              filename: "/config/www/cam_captures/xiaofang.jpg"
-       - service: camera.snapshot
-         data:
-              entity_id: camera.reolink
-              filename: "/config/www/cam_captures/reolink.jpg"
-       - service: camera.snapshot
-         data:
-              entity_id: camera.reolink2
-              filename: "/config/www/cam_captures/reolink2.jpg"
-       - service: camera.snapshot
-         data:
-              entity_id: camera.reolink3
-              filename: "/config/www/cam_captures/reolink3.jpg"
-       - delay: 00:00:05
-       - service: telegram_bot.send_photo
-         data_template:
-           target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
-           file: "/config/www/cam_captures/xiaofang.jpg"
-       - service: telegram_bot.send_photo
-         data_template:
-           target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
-           file: "/config/www/cam_captures/reolink.jpg"
-       - service: telegram_bot.send_photo
-         data_template:
-           target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
-           file: "/config/www/cam_captures/reolink2.jpg"  
-       - service: telegram_bot.send_photo
-         data_template:
-           target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
-           file: "/config/www/cam_captures/reolink3.jpg"  
-         
-
-                      
   telegramm_101:
     alias: Код 101 лампочка в прихожей
     sequence:

@@ -4,3 +4,10 @@
     - service: notify.telegram_alex
       data:
         message: "Детская А, в увлажнителе кончилась вода, или он отключен вручную, время - {{ states('sensor.time_date') }}"
+        
+  telegramm_0801:
+    alias: Код 0801 детская А, проветривание
+    sequence:
+    - service: notify.telegram_alex
+      data:
+        message: "Детская А {{ states('sensor.time_date') }} - хорошо бы проветрить"

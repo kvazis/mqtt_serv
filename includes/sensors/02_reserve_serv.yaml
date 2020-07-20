@@ -1,21 +1,21 @@
  - platform: rest
-   resource: http://192.168.0.71:8123/api/states/sensor.online_custom
-   name: reserve_state
-   force_update: true
-   headers: 
-     Authorization: !secret reserve_secret_token
-     content-type: 'application/json'
-   value_template: '{{ value_json.state }}'
-
- - platform: rest
    resource: http://192.168.0.71:8123/api/states/group.scenario
    name: reserve_scenario_group
    force_update: true
    headers: 
-     Authorization: !secret reserve_secret_token
+     Authorization: !secret rasp4_2_secret_token
      content-type: 'application/json'
    value_template: '{{ value_json.state }}'
-
+  
+ - platform: rest
+   resource: http://192.168.0.71:8123/api/states/sensor.online_custom
+   name: reserve_state
+   force_update: true
+   headers: 
+     Authorization: !secret rasp4_2_secret_token
+     content-type: 'application/json'
+   value_template: '{{ value_json.state }}'
+  
  - platform: mqtt
    name: "reserve_system_unavailable_now_light"
    state_topic: "instance/reserve/sensor/unavailable_now_light/state"  
@@ -33,13 +33,16 @@
    state_topic: "instance/reserve/sensor/unavailable_now_binary_sensor/state"    
    
  - platform: mqtt
-   name: "status_google_backup_71"
-   state_topic: "googlebackup/reserve71/result"
-   json_attributes_topic: "googlebackup/reserve71/result"
+   name: "last_google_backup_reserve"
+   state_topic: "instance/reserve/sensor/last_google_backup_reserve/state"
    
- - platform: template
-   sensors:
-    last_google_backup_reserve:
-       friendly_name: 'Последний удачный бэкап резервного сервера - '
-       value_template: '{{ (as_timestamp(states.sensor.status_google_backup_71.attributes["backupTimestamp"]) + 7200) | timestamp_custom("%d.%m.%Y %H:%M") }}'
+ - platform: mqtt
+   name: "snapshots_in_google_drive_reserve"
+   state_topic: "instance/reserve/sensor/snapshots_in_google_drive_reserve/state"
+   
+ - platform: mqtt
+   name: "snapshots_in_hassio_reserve"
+   state_topic: "instance/reserve/sensor/snapshots_in_hassio_reserve/state"
+
+
   
