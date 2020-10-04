@@ -4,8 +4,7 @@
     - service: telegram_bot.send_message
       data_template:
         target:
-         - !secret chat_id_alex
-         - !secret chat_id_olha
+            - !secret chat_id_group
         message: 'Обнаружена протечка! Датчик под раковиной в кухне. Время события - {{ states.sensor.time_date.state }}'
 
         
@@ -15,6 +14,5 @@
     - service: telegram_bot.send_message
       data_template:
         target:
-         - !secret chat_id_alex
-         - !secret chat_id_olha
+            - !secret chat_id_group
         message: 'Протечка устранена. Датчик под раковиной в кухне. Время события - {{ states.sensor.time_date.state }}'

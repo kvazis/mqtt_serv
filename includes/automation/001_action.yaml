@@ -1,29 +1,25 @@
-# - alias: 05_usb_cool_auto
-#   id: Охлаждающая подставка
-#   initial_state: true
-#   trigger:
-#     - platform: time_pattern
-#       minutes: '/5'
-#     - platform: state
-#       entity_id:
-#         - binary_sensor.living_usb_fan
-#   action:
-#     service_template: >-
-#       {% if is_state("binary_sensor.living_usb_fan", "on") %}
-#           switch.turn_on
-#       {% elif is_state("binary_sensor.living_usb_fan", "off") %}
-#           switch.turn_off
-#       {%- endif -%}  
-#     entity_id: 
-#       - switch.sonoff_1000d036a0_1
-
-- id: Режим отпуск
-  alias: info_vacancy
+- id: Режим никого нет дома вкл
+  alias: info_away_on
   initial_state: true
   trigger:
   - platform: state
-    entity_id: binary_sensor.vacancy
+    entity_id: binary_sensor.away
+    from: 'off'
+    to: 'on'
   action:
-    - service: notify.telegram_alex
+    - service: notify.telegram_group
       data:
-        message: "Изменение режима Отпуск - {{ states('binary_sensor.vacancy') }}.  Время события - {{ states('sensor.time_date') }}"
+        message: "Зафиксировано отсутствие активности всех жизненных форм. Время события - {{ states('sensor.time_date') }} Ухожу в режим спячки"
+        
+- id: Режим никого нет дома выкл
+  alias: info_away_off
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.away
+    from: 'on'
+    to: 'off'
+  action:
+    - service: notify.telegram_group
+      data:
+        message: "Обнаружены чрезмерно активные жизенные формы. Время события - {{ states('sensor.time_date') }} Восстановление нормального режима работы"

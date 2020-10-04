@@ -11,7 +11,7 @@
         data_template:
         #   topic: "zigbee2mqtt/CR vibration/set"
           topic: "zigbee2mqtt/EN smoke sensor/set"
-          payload_template: '{"sensitivity": "high"}'
+          payload_template: '{"sensitivity": "medium"}'
           
           
           
@@ -19,7 +19,7 @@
     sequence:
       - service: mqtt.publish
         data_template:
-          topic: "zigbee2mqtt/LR wd 2ch light cell 1/get"
+          topic: "zigbee2mqtt/BT wd 2ch enter/get"
           payload_template: '{ "operation_mode": {"button": "right"}}'
           
   set_info:  
@@ -28,3 +28,19 @@
         data_template:
           topic: "zigbee2mqtt/BT wd 2ch enter/set"
           payload_template: '{ "operation_mode": {"button": "right", "state": "decoupled"}}'
+
+
+  set_outage_on:  
+    sequence:
+      - service: mqtt.publish
+        data_template:
+          topic: "ZigbeeSLS/LR table power/set"
+          payload_template: '{"power_outage_memory": true}'
+          
+          
+  delete_zigbee:  
+    sequence:          
+        - service: mqtt.publish
+          data_template:                
+            topic: "zigbee2mqtt/bridge/config/remove"
+            payload: "{{states('input_text.filed_1')}}"

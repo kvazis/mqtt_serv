@@ -1,0 +1,180 @@
+conrol:
+
+    binary_sensor:
+    
+      - platform: mqtt
+        name: control
+        state_topic: "states/contol"
+        payload_on: "ON"
+        payload_off: "OFF"
+        
+      - platform: template
+        sensors:
+          main_serv_control:
+            friendly_name: "Основной сервер"
+            device_class: connectivity
+            value_template: >-
+              {{ states('sensor.main_state') != 'unavailable' 
+                 and states('sensor.main_state') != 'unknown'
+                 and states('sensor.main_system_unavailable_now_light')|int < 5 
+                 and states('sensor.main_system_unavailable_now_switch')|int < 5
+                 and states('sensor.main_system_unavailable_now_sensor')|int < 25 
+                 and states('sensor.main_system_unavailable_now_binary_sensor')|int < 25 }}
+            icon_template: >-
+              {% if is_state("binary_sensor.main_serv_control", "on") %}
+              mdi:server-network
+              {% else %}
+              mdi:server-network-off
+              {% endif %}
+              
+          reserve_serv_control:
+            friendly_name: "Резервный сервер"
+            device_class: connectivity
+            value_template: >-
+              {{ states('sensor.reserve_state') != 'unavailable'
+                 and states('sensor.reserve_state') != 'unknown'
+                 and states('sensor.reserve_system_unavailable_now_light')|int < 5 
+                 and states('sensor.reserve_system_unavailable_now_switch')|int < 5
+                 and states('sensor.reserve_system_unavailable_now_sensor')|int < 25 
+                 and states('sensor.reserve_system_unavailable_now_binary_sensor')|int < 25 }}
+            icon_template: >-
+              {% if is_state("binary_sensor.reserve_serv_control", "on") %}
+              mdi:server-network
+              {% else %}
+              mdi:server-network-off
+              {% endif %}
+
+    timer:
+    
+        main_control:
+          name: Возврат управления через - 
+          duration: '00:01:00'
+        
+    switch:
+    
+      - platform: template
+        switches:
+          main_mode:
+            friendly_name: "Основной сервер"
+            value_template: "{{  is_state('binary_sensor.control', 'on') }}"
+            turn_on:
+              service: mqtt.publish
+              data_template:
+                topic: "states/contol"
+                payload_template: 'ON'
+                retain: true 
+            turn_off:
+              service: mqtt.publish
+              data_template:
+                topic: "states/contol"
+                payload_template: 'OFF'
+                retain: true 
+            icon_template: >-
+              {% if is_state('switch.main_mode', 'on') %}
+                mdi:server
+              {% else %}
+                mdi:server-off
+              {% endif %}
+              
+          reserve_mode:
+            friendly_name: "Резервный сервер"
+            value_template: "{{  is_state('binary_sensor.control', 'off') }}"
+            turn_on:
+              service: mqtt.publish
+              data_template:
+                topic: "states/contol"
+                payload_template: 'OFF'
+                retain: true 
+            turn_off:
+              service: mqtt.publish
+              data_template:
+                topic: "states/contol"
+                payload_template: 'ON'
+                retain: true 
+            icon_template: >-
+              {% if is_state('switch.reserve_mode', 'on') %}
+                mdi:server
+              {% else %}
+                mdi:server-off
+              {% endif %}
+              
+              
+    automation:
+    
+        - id: Контроль работы серверов
+          alias: server_control
+          initial_state: true
+          trigger:
+           - platform: state
+             entity_id: binary_sensor.main_serv_control
+           - platform: state
+             entity_id: binary_sensor.reserve_serv_control
+          action:
+            - choose:
+                - conditions:
+                    - condition: state
+                      entity_id: binary_sensor.control
+                      state: "on"
+                    - condition: state
+                      entity_id: binary_sensor.main_serv_control
+                      state: "off"
+                    - condition: state
+                      entity_id: binary_sensor.reserve_serv_control
+                      state: "on"
+                  sequence:
+                    - service: timer.cancel
+                      entity_id: timer.main_control
+                    - service: switch.turn_on
+                      entity_id: switch.reserve_mode
+                    - service: notify.telegram_alex
+                      data:
+                         message: | 
+                             Переключение управления на резервный сервер {{ states('sensor.time_date') }} 
+                - conditions:
+                    - condition: state
+                      entity_id: binary_sensor.control
+                      state: "off"
+                    - condition: state
+                      entity_id: binary_sensor.main_serv_control
+                      state: "on"
+                  sequence:
+                    - service: timer.start
+                      entity_id: timer.main_control
+                - conditions:
+                    - condition: state
+                      entity_id: binary_sensor.main_serv_control
+                      state: "off"
+                    - condition: state
+                      entity_id: binary_sensor.reserve_serv_control
+                      state: "off"
+                  sequence:
+                    - service: notify.telegram_alex
+                      data:
+                         message: | 
+                             Аварийная ситуация {{ states('sensor.time_date') }} 
+                             {{"\U0001F4AC"}} Основной сервер Raspberry Pi 4 B 4GB
+                             {{"\U0001F4A1"}} недоступно - {{ states('sensor.main_system_unavailable_now_light') }} 
+                             {{"\U0001F50C"}} недоступно - {{ states('sensor.main_system_unavailable_now_switch') }} 
+                             {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.main_system_unavailable_now_sensor') }} 
+                             {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.main_system_unavailable_now_binary_sensor') }} 
+                             {{"\U0001F4AC"}} Резервный сервер Raspberry Pi 4 B 2GB
+                             {{"\U0001F4A1"}} недоступно - {{ states('sensor.reserve_system_unavailable_now_light') }} 
+                             {{"\U0001F50C"}} недоступно - {{ states('sensor.reserve_system_unavailable_now_switch') }} 
+                             {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.reserve_system_unavailable_now_sensor') }} 
+                             {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.reserve_system_unavailable_now_binary_sensor') }}
+                             
+        - id: Возврат управления на основной сервер
+          alias: main_control
+          initial_state: true
+          trigger:
+            - platform: event
+              event_type: timer.finished
+              event_data:
+                entity_id: timer.main_control
+          action:
+            - service: switch.turn_on
+              entity_id: switch.main_mode
+            - service: notify.telegram_alex
+              data:
+                 message: | 
+                     Возврат управления на основной сервер {{ states('sensor.time_date') }} 

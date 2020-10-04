@@ -171,15 +171,15 @@ views:
            - entity: sensor.disk_free
              name: Свободно на диске
           color_thresholds:
-            - value: 10
+            - value: 4
               color: "#DC143C"
-            - value: 15
+            - value: 6
               color: "#FF8C00"
-            - value: 20
+            - value: 8
               color: "#FFFF00"
-            - value: 25
+            - value: 10
               color: "#98FB98"
-            - value: 30
+            - value: 12
               color: "#7FFF00"
         #   show:
         #       graph: bar
@@ -239,6 +239,32 @@ views:
     icon: mdi:monitor-dashboard
 
     cards:
+    
+      - type: vertical-stack
+        cards:
+
+        - type: markdown
+          content: >
+             **Панель управления**
+        # - type: entities
+        #   show_header_toggle: false
+        #   entities:
+        #   - entity: binary_sensor.control
+        #     name: Режим управления
+            
+        - type: entities
+          show_header_toggle: false
+          entities:
+          - entity: binary_sensor.main_serv_control
+          - entity: switch.main_mode
+          - entity: timer.main_control
+
+        - type: entities
+          show_header_toggle: false
+          entities:
+          - entity: binary_sensor.reserve_serv_control
+          - entity: switch.reserve_mode
+
 
       - type: vertical-stack
         cards:
@@ -342,7 +368,7 @@ views:
           show_header_toggle: false
           entities:
           - entity: sensor.last_boot_custom
-            name: Orange PI PC 2 в онлайне -
+            name: Khadas VIM 2 Basic в онлайне -
             icon: mdi:clock-outline
 
           - entity: sensor.last_google_backup_mqtt
@@ -399,7 +425,15 @@ views:
               icon: mdi:check
             - entity: sensor.count_script_off
               icon: mdi:close-circle-outline
-    
+ 
+        - type: entities
+          show_header_toggle: false
+          entities:
+            - entity: input_text.filed_1
+              name: Адрес устройства
+            - entity: script.delete_zigbee
+            
+            
       - type: vertical-stack
         cards:
 
@@ -569,13 +603,18 @@ views:
           
       - type: vertical-stack
         cards:
-        
+        - type: markdown
+          content: >
+             **Reolink E1 Pro**         
         - type: picture-entity
           entity: camera.reolink4
           camera_view: live 
           show_state: false
           show_name: false
-        
+
+        - type: markdown
+          content: >
+             **Xiaofang 1S**           
         - type: picture-entity
           entity: camera.xiaofang1s
           camera_view: live 
@@ -651,31 +690,15 @@ views:
             name: Режим отопления - 
           - entity: binary_sensor.holiday
             name: Режим выходного дня -
-          - entity: binary_sensor.vacancy
-            name: Режим отпуск - 
+          - entity: binary_sensor.away
+            name: Никого нет дома - 
 
       - type: vertical-stack
         cards:
 
-        - type: markdown
-          content: >
-             **Скрипты**
-        - type: entities
-          show_header_toggle: false
-          entities:
-          - entity: script.test
-            tap_action: 
-              action: toggle
-            name: Тестовые коды
-            icon: mdi:telegram  
-          - entity: script.photo_xiaofang
-          - entity: script.photo_xiaofang1s
-          - entity: script.photo_reolink
-          - entity: script.photo_reolink2
-          - entity: script.photo_reolink3
-          - entity: script.photo_reolink4
-          - entity: script.video_reolink2
-
+          - type: markdown
+            content: >
+               **Скрипты**
 
           - type: custom:auto-entities
             show_empty: false

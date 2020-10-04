@@ -23,7 +23,7 @@
     payload_off: "OFF"
 
   - platform: mqtt
-    name: vacancy
-    state_topic: "states/vacancy"
+    name: away
+    state_topic: "states/away"
     payload_on: "ON"
     payload_off: "OFF"

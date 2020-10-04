@@ -15,6 +15,7 @@
          message: | 
              {{"\U0001F4AC"}} Основной сервер Raspberry Pi 4 B 4GB
              {{"\U0001F567"}} Отчет за {{ states('sensor.time_date') }}
+             {{"\U0001F503"}} Режим управления - {{ states('switch.main_mode') }} 
              {{"\U0001F4DC"}} Бытовые сценарии - {{ states('sensor.main_scenario_group') }} 
              {{"\U0001F4A1"}} недоступно - {{ states('sensor.main_system_unavailable_now_light') }} 
              {{"\U0001F50C"}} недоступно - {{ states('sensor.main_system_unavailable_now_switch') }} 

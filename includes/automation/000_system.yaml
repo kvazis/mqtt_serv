@@ -31,3 +31,14 @@
         topic: "notification/messages"
         payload_template: '000'
         retain: true
+        
+- alias: 00_udpate_entity
+  initial_state: true
+  trigger:    
+   - platform: time_pattern
+     seconds: '/30'
+  action:    
+  - service: homeassistant.update_entity
+    entity_id:
+       - sensor.last_boot_custom
+

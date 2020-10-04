@@ -9,8 +9,7 @@
        - service: telegram_bot.send_photo
          data_template:
            target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
+            - !secret chat_id_group
            file: "/config/www/cam_captures/xiaofang.jpg"
            
   photo_xiaofang1s:
@@ -24,8 +23,7 @@
        - service: telegram_bot.send_photo
          data_template:
            target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
+            - !secret chat_id_group
            file: "/config/www/cam_captures/xiaofang1s.jpg"
 
   photo_reolink:
@@ -39,8 +37,7 @@
        - service: telegram_bot.send_photo
          data_template:
            target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
+            - !secret chat_id_group
            file: "/config/www/cam_captures/reolink.jpg"
 
   photo_reolink2:
@@ -54,8 +51,7 @@
        - service: telegram_bot.send_photo
          data_template:
            target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
+            - !secret chat_id_group
            file: "/config/www/cam_captures/reolink2.jpg"  
 
   photo_reolink3:
@@ -69,8 +65,7 @@
        - service: telegram_bot.send_photo
          data_template:
            target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
+            - !secret chat_id_group
            file: "/config/www/cam_captures/reolink3.jpg"  
            
   photo_reolink4:
@@ -84,8 +79,7 @@
        - service: telegram_bot.send_photo
          data_template:
            target:
-            - !secret chat_id_alex
-            - !secret chat_id_olha
+            - !secret chat_id_group
            file: "/config/www/cam_captures/reolink4.jpg"  
            
   video_reolink2:

@@ -4,8 +4,7 @@
     - service: telegram_bot.send_message
       data_template:
         target:
-         - !secret chat_id_alex
-         - !secret chat_id_olha
+         - !secret chat_id_group
         message: 'Обнаружена протечка! Датчик под раковиной в ванной. Время события - {{ states.sensor.time_date.state }}'
 
         
@@ -15,8 +14,7 @@
     - service: telegram_bot.send_message
       data_template:
         target:
-         - !secret chat_id_alex
-         - !secret chat_id_olha
+         - !secret chat_id_group
         message: 'Протечка устранена. Датчик под раковиной в ванной. Время события - {{ states.sensor.time_date.state }}'
         
   telegramm_a0602:
@@ -25,8 +23,7 @@
     - service: telegram_bot.send_message
       data_template:
         target:
-         - !secret chat_id_alex
-         - !secret chat_id_olha
+         - !secret chat_id_group
         message: 'Обнаружена протечка! Датчик под душевой кабиной в ванной. Время события - {{ states.sensor.time_date.state }}'
 
         
@@ -36,8 +33,7 @@
     - service: telegram_bot.send_message
       data_template:
         target:
-         - !secret chat_id_alex
-         - !secret chat_id_olha
+         - !secret chat_id_group
         message: 'Протечка устранена. Датчик под душевой кабиной в ванной. Время события - {{ states.sensor.time_date.state }}'
         
   telegramm_0600:

@@ -48,6 +48,8 @@
           script.telegramm_0603
           {%- elif states.sensor.messages_code.state  == '0700' -%}
           script.telegramm_0700
+          {%- elif states.sensor.messages_code.state  == '0701' -%}
+          script.telegramm_0701
           {%- elif states.sensor.messages_code.state  == '0800' -%}
           script.telegramm_0800
           {%- elif states.sensor.messages_code.state  == '0801' -%}

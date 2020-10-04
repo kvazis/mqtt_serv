@@ -1,0 +1,7 @@
+      - platform: template
+        sensors:
+          0x00158d0001a4b9da_pressure_mmhg:
+            friendly_name: "Атмосферное давление на улице"
+            unit_of_measurement: 'mmHg'
+            value_template: "{{ (states('sensor.0x00158d0001a4b9da_pressure')|float * 0.7500637)|round(2) }}"
+            icon_template: mdi:gauge

@@ -86,8 +86,6 @@
   sensors:
       last_boot_custom:
         friendly_name: "Последняя перезагрузка"
-        entity_id:
-          - sensor.time
         value_template: >
            {% set uptime = as_timestamp (now()) -as_timestamp(states.sensor.last_boot.state) | int %}
            {% set minutes = (( uptime % 3600) / 60) | int %}

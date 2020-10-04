@@ -1,6 +1,17 @@
   telegramm_0700:
     alias: Код 0700 закончилась вода в увлажнителе, детская Д
     sequence:
-    - service: notify.telegram_alex
-      data:
-        message: "Детская Д, в увлажнителе кончилась вода, или он отключен вручную, время - {{ states('sensor.time_date') }}"
+       - service: telegram_bot.send_message
+         data_template:
+           target:
+            - !secret chat_id_group
+           message: "Детская Д, в увлажнителе кончилась вода, или он отключен вручную, время - {{ states('sensor.time_date') }}"
+           
+  telegramm_0701:
+    alias: Код 0701 необходимо проветрить
+    sequence:
+       - service: telegram_bot.send_message
+         data_template:
+           target:
+            - !secret chat_id_group
+           message: "Детская Д, необходимо проветрить комнату, содержание CO2 - {{ states('sensor.0x00124b001ed165de_co2') }} ppm"

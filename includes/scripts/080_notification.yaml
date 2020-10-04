@@ -8,6 +8,6 @@
   telegramm_0801:
     alias: Код 0801 детская А, проветривание
     sequence:
-    - service: notify.telegram_alex
+    - service: notify.telegram_group
       data:
         message: "Детская А {{ states('sensor.time_date') }} - хорошо бы проветрить"

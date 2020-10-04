@@ -6,7 +6,8 @@ homeassistant:
   longitude: !secret longitude_coord
   time_zone: Europe/Kiev
 
-  customize: !include_dir_merge_named includes/customize  
+  customize: !include_dir_merge_named includes/customize
+  packages: !include_dir_merge_named includes/packages
 
   auth_providers:
    - type: homeassistant
@@ -62,6 +63,11 @@ automation: !include_dir_merge_list includes/automation
 sensor: !include_dir_merge_list includes/sensors
 script: !include_dir_merge_named includes/scripts
 # mqtt_statestream: !include includes/mqtt_statestream.yaml
+
+input_text:
+  filed_1:
+    name: adress
+    initial: device adress
  
 mqtt:
   broker: core-mosquitto
@@ -76,6 +82,7 @@ telegram_bot:
     allowed_chat_ids:
       - !secret chat_id_alex
       - !secret chat_id_olha
+      - !secret chat_id_group
       
 notify:
   - name: telegram_alex
@@ -85,3 +92,7 @@ notify:
   - name: telegram_olha
     platform: telegram
     chat_id: !secret chat_id_olha
+    
+  - name: telegram_group
+    platform: telegram
+    chat_id: !secret chat_id_group

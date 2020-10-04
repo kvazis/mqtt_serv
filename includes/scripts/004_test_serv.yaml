@@ -11,11 +11,11 @@
      - service: notify.telegram_alex
        data:
          message: | 
-             Потеря связи с тестовым серевером в {{ states('sensor.time_date') }} 
+             Потеря связи с тестовым сервером в {{ states('sensor.time_date') }} 
              
   telegramm_test_online:
     sequence:
      - service: notify.telegram_alex
        data:
          message: | 
-             Связь с тестовым серевером восстановлена в {{ states('sensor.time_date') }} 
+             Связь с тестовым сервером восстановлена в {{ states('sensor.time_date') }} 

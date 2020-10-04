@@ -1,0 +1,19 @@
+  outdoor_report:
+    sequence:
+       - service: telegram_bot.send_message
+         data_template:
+           target:
+            - !secret chat_id_group
+           message: | 
+             {{"\U0001F3E0"}} Климат отчет
+             {{"\U0001F321"}} Температура на улице - {{ states('sensor.0x00158d0001a4b9da_temperature') }} C
+             {{"\U0001F4AA"}} Давление - {{ states('sensor.0x00158d0001a4b9da_pressure_mmhg') }} мм рт. ст
+             {{"\U00002622"}} Радиация - {{ states('sensor.geiger_counter_radiation_dose_per_hour') }} мкР в час
+             {{"\U00002600"}} Погода - {{ states('sensor.openweathermap_weather') }}
+             {{"\U0001F327"}} Уровень осадков - {{ states('sensor.openweathermap_rain') }} мм.
+             {{"\U0001F32C"}} Скорость ветра - {{ states('sensor.openweathermap_forecast_wind_speed') }} м/сек
+             {{"\U00002602"}} Прогноз на сегодня - {{ states('sensor.openweathermap_forecast_condition') }}, {{"\U0001F321"}} {{ states('sensor.openweathermap_forecast_temperature') }} C
+             
+             
+
+             

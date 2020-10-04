@@ -1,20 +1,20 @@
- - platform: rest
-   resource: http://192.168.0.73:8123/api/states/sensor.online_custom
-   name: test_state
-   force_update: true
-   headers: 
-     Authorization: !secret rasp3bplus_secret_token
-     content-type: 'application/json'
-   value_template: '{{ value_json.state }}'
+#  - platform: rest
+#   resource: http://192.168.0.73:8123/api/states/sensor.online_custom
+#   name: test_state
+#   force_update: true
+#   headers: 
+#      Authorization: !secret rasp3bplus_secret_token
+#      content-type: 'application/json'
+#   value_template: '{{ value_json.state }}'
    
- - platform: mqtt
-   name: "last_google_backup_test"
-   state_topic: "instance/test/sensor/last_google_backup_test/state"
+#  - platform: mqtt
+#   name: "last_google_backup_test"
+#   state_topic: "instance/test/sensor/last_google_backup_test/state"
    
- - platform: mqtt
-   name: "snapshots_in_google_drive_test"
-   state_topic: "instance/test/sensor/snapshots_in_google_drive/state"
+#  - platform: mqtt
+#   name: "snapshots_in_google_drive_test"
+#   state_topic: "instance/test/sensor/snapshots_in_google_drive/state"
    
- - platform: mqtt
-   name: "snapshots_in_hassio_test"
-   state_topic: "instance/test/sensor/snapshots_in_hassio/state"
+#  - platform: mqtt
+#   name: "snapshots_in_hassio_test"
+#   state_topic: "instance/test/sensor/snapshots_in_hassio/state"
