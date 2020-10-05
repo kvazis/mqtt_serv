@@ -1,0 +1,11 @@
+  - alias: telegram_test
+    trigger:
+      - platform: event
+        event_type: telegram_command
+        event_data:
+          command: '/test'
+    action:
+      - service: telegram_bot.send_message
+        data_template:
+          target: '{{ trigger.event.data.user_id }}'
+          message: 'Текущее время - {{ states.sensor.time_date.state }}'
